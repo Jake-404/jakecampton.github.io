@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jake Campton — Communications Leader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ── TOKENS ── */
+  :root {
+    --ink:        #0C0D0F;
+    --surface:    #111318;
+    --surface2:   #181B22;
+    --surface3:   #1E222C;
+    --border:     #272C38;
+    --muted:      #4A5166;
+    --body:       #9AA3B8;
+    --cream:      #E8E2D5;
+    --white:      #F5F3EF;
+    --gold:       #C9A84C;
+    --gold-light: #E0BF70;
+    --gold-dim:   #8A6A1E;
+    --teal:       #2EC4B6;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body:    'DM Sans', system-ui, sans-serif;
+    --font-mono:    'DM Mono', monospace;
+  }
+
+  /* ── RESET ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--body);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.35;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 60px;
+    background: rgba(12, 13, 15, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--cream);
+    letter-spacing: 0.04em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 72px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(46,196,182,0.05) 0%, transparent 50%),
+      linear-gradient(160deg, #0C0D0F 0%, #111520 50%, #0A0C12 100%);
+  }
+  .hero-rule {
+    width: 64px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 32px;
+    animation: expandRule 1s ease forwards;
+    transform-origin: left;
+  }
+  @keyframes expandRule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s ease forwards;
+  }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(64px, 9vw, 128px);
+    font-weight: 300;
+    line-height: 0.92;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.35s ease forwards;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero-title {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 48px;
+    max-width: 560px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s ease forwards;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 56px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.65s ease forwards;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .stat-num span { color: var(--gold); }
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 32px;
+    right: 72px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0;
+    animation: fadeIn 1s 1.2s ease forwards;
+  }
+  .hero-scroll::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--muted);
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 112px 72px;
+    position: relative;
+  }
+  section + section { border-top: 1px solid var(--border); }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 64px;
+  }
+  .section-title em { font-style: italic; color: var(--gold-light); }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-body {
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--cream);
+    font-weight: 300;
+  }
+  .about-body p + p { margin-top: 20px; }
+  .about-aside {}
+  .competency-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .competency-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--body);
+    transition: color 0.2s;
+  }
+  .competency-item:hover { color: var(--cream); }
+  .competency-item:first-child { border-top: 1px solid var(--border); }
+  .competency-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .competency-name { flex: 1; padding: 0 16px; }
+  .competency-tag {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── EXPERIENCE ── */
+  .experience-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-item:first-child { border-top: 1px solid var(--border); }
+  .exp-meta {}
+  .exp-date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .exp-company {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .exp-content {}
+  .exp-role {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .exp-desc {
+    font-size: 14px;
+    color: var(--body);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .exp-bullets li {
+    font-size: 13px;
+    color: var(--body);
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.65;
+  }
+  .exp-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold-dim);
+  }
+
+  /* ── MEDIA FILTERS ── */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 7px 18px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* ── MEDIA GRID ── */
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2px;
+  }
+  .media-card {
+    background: var(--surface);
+    padding: 28px 32px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+  .media-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--card-accent, var(--gold));
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease;
+  }
+  .media-card:hover { background: var(--surface2); border-color: var(--surface3); }
+  .media-card:hover::before { transform: scaleY(1); }
+  .card-type {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--card-accent, var(--gold));
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-type::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .card-outlet {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-outlet strong { color: var(--body); font-weight: 500; }
+  .card-date {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .card-notes {
+    font-size: 12px;
+    color: var(--body);
+    line-height: 1.6;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    transition: gap 0.2s;
+  }
+  .media-card:hover .card-link { gap: 10px; }
+  .media-card[data-hidden="true"] { display: none; }
+
+  /* ── PRESS LOGOS (text-based) ── */
+  .press-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 80px;
+    overflow: hidden;
+  }
+  .press-item {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    padding: 24px 20px;
+    border-right: 1px solid var(--border);
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .press-item:last-child { border-right: none; }
+  .press-item:hover { color: var(--cream); }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--surface);
+    text-align: center;
+    padding: 112px 72px;
+  }
+  .cta-section .section-label { justify-content: center; display: flex; }
+  .cta-title {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5vw, 72px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .cta-title em { font-style: italic; color: var(--gold-light); }
+  .cta-sub {
+    font-size: 16px;
+    color: var(--body);
+    max-width: 500px;
+    margin: 0 auto 48px;
+  }
+  .cta-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--ink);
+    border: 1px solid var(--gold);
+  }
+  .btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 72px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  footer a:hover { color: var(--gold); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 0 24px 64px; }
+    section { padding: 80px 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .exp-item { grid-template-columns: 1fr; gap: 8px; }
+    .hero-stats { gap: 32px; flex-wrap: wrap; }
+    .media-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+    .cta-section { padding: 80px 24px; }
+    .press-bar { display: none; }
+    .hero-scroll { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Jake Campton</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#media">Media</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-eyebrow">Head of Communications &amp; Social Media · VeChain · Blockchain Since 2018</div>
+  <h1 class="hero-name">Jake<br><em>Campton</em></h1>
+  <p class="hero-title">Communications leader turning complex technology into narratives that move people — and metrics that move organisations.</p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">2M<span>+</span></div>
+      <div class="stat-label">Global Followers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">178<span>k</span></div>
+      <div class="stat-label">Flagship Broadcast Views</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">£500<span>k+</span></div>
+      <div class="stat-label">Paid Media Managed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">8<span>+</span></div>
+      <div class="stat-label">Years in Blockchain</div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll to explore</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <p class="section-label">01 — About</p>
+    <h2 class="section-title">The person<br>behind the <em>platform</em></h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-body reveal">
+      <p>I build communications functions that operate at the intersection of technology, culture and human behaviour. Over eight years in blockchain — first as an early believer, then as a builder — I've developed a philosophy centred on creating what I call <strong style="color:var(--cream)">"woah moments"</strong>: the instants when complex ideas click, audiences lean in, and brands become memorable.</p>
+      <p>At VeChain, I transformed a reactive comms function into a proactive, multi-channel operation. I built the global ambassador programme from scratch, grew combined social reach to over 2 million followers, and hosted flagship livestreams alongside the CEO that drew hundreds of thousands of views. I pioneered AI-augmented workflows before they were standard practice, while maintaining the editorial quality and brand voice expected of a global enterprise.</p>
+      <p>I hold an MSc in Science Communication — a discipline that demands clarity, precision, and empathy for your audience. It's the foundation everything else sits on.</p>
+      <p style="margin-top:28px">
+        <a href="Jake_Campton_CV_Generic_v2.docx" class="btn btn-primary" style="display:inline-flex;">
+          Download CV
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </a>
+      </p>
+    </div>
+    <div class="about-aside reveal">
+      <div class="competency-list">
+        <div class="competency-item"><span class="competency-dot"></span><span class="competency-name">Brand &amp; Narrative Strategy</span><span class="competency-tag">Core</span></div>
+        <div class="competency-item"><span class="competency-dot"></span><span class="competency-name">Social Media (2M+ reach)</span><span class="competency-tag">Core</span></div>
+        <div class="competency-item"><span class="competency-dot"></span><span class="competency-name">Blockchain &amp; Web3 Communications</span><span class="competency-tag">Specialist</span></div>
+        <div class="competency-item"><span class="competency-dot"></span><span class="competency-name">Media Relations &amp; PR</span><span class="competency-tag">Core</span></div>
+        <div class="competency-item"><span class="competency-dot"></span><span class="competency-name">AI-Augmented Workflows</span><span class="competency-tag">Emerging</span></div>
+        <div class="competency-item"><span class="competency-dot"></span><span class="competency-name">Paid Amplification (£500k+)</span><span class="competency-tag">Core</span></div>
+        <div class="competency-item"><span class="competency-dot"></span><span class="competency-name">Global Ambassador Programmes</span><span class="competency-tag">Leadership</span></div>
+        <div class="competency-item"><span class="competency-dot"></span><span class="competency-name">Event &amp; Conference Speaking</span><span class="competency-tag">Public</span></div>
+        <div class="competency-item"><span class="competency-dot"></span><span class="competency-name">Science Communication (MSc)</span><span class="competency-tag">Academic</span></div>
+        <div class="competency-item"><span class="competency-dot"></span><span class="competency-name">Hootsuite · Brandwatch · Muck Rack</span><span class="competency-tag">Tools</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="reveal">
+    <p class="section-label">02 — Experience</p>
+    <h2 class="section-title">Where I've<br><em>built things</em></h2>
+  </div>
+  <div class="experience-list">
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-date">2019 — Present</div>
+        <div class="exp-company">VeChain</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Head of Communications &amp; Social Media</div>
+        <div class="exp-desc">Led the strategic transformation of VeChain's global communications — from a reactive, niche blockchain presence to a proactive, multi-channel operation reaching 2M+ followers across EMEA and the Americas.</div>
+        <ul class="exp-bullets">
+          <li>Grew combined social media presence to 2M+ global followers across X/Twitter, LinkedIn, Instagram, Discord and Telegram</li>
+          <li>Hosted flagship Renaissance livestream series alongside CEO Sunny Lu, reaching 178,000 views on the Hayabusa Deep Dive alone</li>
+          <li>Built and managed a 20-person global ambassador programme from scratch</li>
+          <li>Led communications for VeBetterDAO product launch, reaching 5M+ users</li>
+          <li>Managed £500,000+ in paid amplification budgets across social and display channels</li>
+          <li>Pioneered AI-augmented workflows to accelerate content production while maintaining editorial standards</li>
+          <li>Secured and managed coverage across Cointelegraph, BeInCrypto, CoinGeek, Crypto News Flash and international press</li>
+          <li>Represented VeChain on stage at London Blockchain Conference 2024 &amp; 2025, The HiVe Summit, and as podcast guest on Cointelegraph Hashing It Out and BeInCrypto</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-date">2017 — 2019</div>
+        <div class="exp-company">CREAM LLC</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Communications Manager</div>
+        <div class="exp-desc">Managed client communications across a diverse portfolio in the early blockchain space. Developed community-first strategy and built brand voice frameworks still referenced today.</div>
+        <ul class="exp-bullets">
+          <li>Led social media and content strategy for multiple blockchain and technology clients</li>
+          <li>Part-time consulting work with VeChain prior to joining full-time</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-date">Earlier Career</div>
+        <div class="exp-company">DNA Communications · OPEN Health</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Communications &amp; PR</div>
+        <div class="exp-desc">Foundation roles in communications, media relations, and healthcare PR. Developed core craft skills in writing, stakeholder management, and campaign delivery.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MEDIA -->
+<section id="media">
+  <div class="reveal">
+    <p class="section-label">03 — Media &amp; Appearances</p>
+    <h2 class="section-title">On screens,<br><em>in print</em></h2>
+  </div>
+
+  <!-- Press bar -->
+  <div class="press-bar reveal">
+    <div class="press-item">Cointelegraph</div>
+    <div class="press-item">BeInCrypto</div>
+    <div class="press-item">CoinGeek</div>
+    <div class="press-item">Crypto News Flash</div>
+    <div class="press-item">CoinSpeaker</div>
+    <div class="press-item">Blockonomi</div>
+    <div class="press-item">BSV Blockchain</div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-bar reveal">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="video">Video</button>
+    <button class="filter-btn" data-filter="podcast">Podcast</button>
+    <button class="filter-btn" data-filter="short">Short-Form</button>
+    <button class="filter-btn" data-filter="article">Press</button>
+    <button class="filter-btn" data-filter="profile">Profiles</button>
+  </div>
+
+  <!-- Cards -->
+  <div class="media-grid" id="mediaGrid">
+
+    <!-- VIDEO -->
+    <div class="media-card" data-type="video" style="--card-accent:#C9A84C" onclick="window.open('https://www.youtube.com/watch?v=6NBehD87P5I','_blank')">
+      <div class="card-type">Video · Long-form</div>
+      <div class="card-title">VeChain Hayabusa Deep Dive: Tokenomics, StarGate Staking &amp; DPoS</div>
+      <div class="card-outlet"><strong>VeChain YouTube</strong> · Dec 2025</div>
+      <div class="card-notes">178,000 views. With CEO Sunny Lu &amp; Rosa Simeoli. Full mainnet upgrade walkthrough.</div>
+      <div class="card-link">Watch ↗</div>
+    </div>
+
+    <div class="media-card" data-type="video" style="--card-accent:#C9A84C" onclick="window.open('https://www.youtube.com/watch?v=LbDFu3FjJ9A','_blank')">
+      <div class="card-type">Video · Livestream</div>
+      <div class="card-title">VeChain Renaissance Premiere — Ep. 1: Prepare for StarGate</div>
+      <div class="card-outlet"><strong>VeChain YouTube</strong> · Jun 2025</div>
+      <div class="card-notes">4,500 views. First-ever Renaissance livestream series, hosted with CEO Sunny Lu.</div>
+      <div class="card-link">Watch ↗</div>
+    </div>
+
+    <div class="media-card" data-type="video" style="--card-accent:#C9A84C" onclick="window.open('https://www.youtube.com/watch?v=frQLhCL7Wfw','_blank')">
+      <div class="card-type">Video · Livestream</div>
+      <div class="card-title">VeChain Renaissance Premiere — Ep. 2: StarGate Sneak Peek</div>
+      <div class="card-outlet"><strong>VeChain YouTube</strong> · Jul 2025</div>
+      <div class="card-notes">2,200 views. Live streamed StarGate staking preview with CEO &amp; Product Manager.</div>
+      <div class="card-link">Watch ↗</div>
+    </div>
+
+    <div class="media-card" data-type="video" style="--card-accent:#C9A84C" onclick="window.open('https://londonblockchain.net','_blank')">
+      <div class="card-type">Video · Conference</div>
+      <div class="card-title">London Blockchain Conference 2025 — Innovation Stage: VeBetterDAO</div>
+      <div class="card-outlet"><strong>LBC / VeChain</strong> · Oct 2025</div>
+      <div class="card-notes">VeBetterDAO &amp; X-2-Earn model. Co-presented with Dr. Alec Burns (VeChain R&amp;D).</div>
+      <div class="card-link">View ↗</div>
+    </div>
+
+    <div class="media-card" data-type="video" style="--card-accent:#C9A84C" onclick="window.open('https://londonblockchain.net','_blank')">
+      <div class="card-type">Video · Conference</div>
+      <div class="card-title">London Blockchain Conference 2024 — PoW / PoS / PoA Panel</div>
+      <div class="card-outlet"><strong>LBC / CoinGeek</strong> · May 2024</div>
+      <div class="card-notes">Enterprise consensus mechanisms debate with GorillaPool &amp; SmartLedger panellists.</div>
+      <div class="card-link">View ↗</div>
+    </div>
+
+    <div class="media-card" data-type="video" style="--card-accent:#C9A84C">
+      <div class="card-type">Video · Summit</div>
+      <div class="card-title">The HiVe Summit 2024 — VeChain presents VeBetterDAO</div>
+      <div class="card-outlet"><strong>The HiVe Network</strong> · 2024</div>
+      <div class="card-notes">Afternoon session on sustainability-through-Web3. Co-presented with Dr. Alec Burns.</div>
+    </div>
+
+    <!-- PODCAST -->
+    <div class="media-card" data-type="podcast" style="--card-accent:#A67CC9" onclick="window.open('https://cointelegraph.com/podcasts/hashing-it-out','_blank')">
+      <div class="card-type">Podcast · Solo Feature</div>
+      <div class="card-title">Cointelegraph Hashing It Out — Ep. 51</div>
+      <div class="card-outlet"><strong>Cointelegraph</strong> · Mar 2024</div>
+      <div class="card-notes">Solo episode. Web3 &amp; sustainability, VeBetterDAO explained for mainstream crypto audience.</div>
+      <div class="card-link">Listen ↗</div>
+    </div>
+
+    <div class="media-card" data-type="podcast" style="--card-accent:#A67CC9" onclick="window.open('https://cointelegraph.com/podcasts/hashing-it-out','_blank')">
+      <div class="card-type">Podcast · Roundtable</div>
+      <div class="card-title">Cointelegraph Hashing It Out — Roundtable</div>
+      <div class="card-outlet"><strong>Cointelegraph</strong> · Oct 2024</div>
+      <div class="card-notes">With Puffpaw CEO Reffo Tse. VeBetter platform, vape-to-earn, tokenising sustainable actions.</div>
+      <div class="card-link">Listen ↗</div>
+    </div>
+
+    <div class="media-card" data-type="podcast" style="--card-accent:#A67CC9" onclick="window.open('https://beincrypto.com','_blank')">
+      <div class="card-type">Podcast</div>
+      <div class="card-title">BeInCrypto Podcast — Hayabusa Upgrade Deep Dive</div>
+      <div class="card-outlet"><strong>BeInCrypto</strong> · Dec 2025</div>
+      <div class="card-notes">DPoS transition, StarGate staking, new tokenomics for VET holders.</div>
+      <div class="card-link">Listen ↗</div>
+    </div>
+
+    <!-- SHORTS -->
+    <div class="media-card" data-type="short" style="--card-accent:#2EC4B6" onclick="window.open('https://www.youtube.com/watch?v=liD9xZc5RFg','_blank')">
+      <div class="card-type">Short-Form · Ask Jake</div>
+      <div class="card-title">VeBetterDAO Uncovered: How New dApps Enhance VeChain's $VET</div>
+      <div class="card-outlet"><strong>VeChain YouTube</strong> · 2024</div>
+      <div class="card-notes">790 views.</div>
+      <div class="card-link">Watch ↗</div>
+    </div>
+
+    <div class="media-card" data-type="short" style="--card-accent:#2EC4B6" onclick="window.open('https://www.youtube.com/watch?v=m-3iT0DH_vA','_blank')">
+      <div class="card-type">Short-Form · Ask Jake</div>
+      <div class="card-title">Ask Jake Anything — B3TR Token</div>
+      <div class="card-outlet"><strong>VeChain YouTube</strong> · 2024</div>
+      <div class="card-notes">733 views. B3TR token mechanics and mainnet launch transition.</div>
+      <div class="card-link">Watch ↗</div>
+    </div>
+
+    <div class="media-card" data-type="short" style="--card-accent:#2EC4B6" onclick="window.open('https://www.youtube.com/watch?v=tmeohu36DeA','_blank')">
+      <div class="card-type">Short-Form · Ask Jake</div>
+      <div class="card-title">Ask Jake Anything — VeBetterDAO</div>
+      <div class="card-outlet"><strong>VeChain YouTube</strong> · 2024</div>
+      <div class="card-notes">642 views.</div>
+      <div class="card-link">Watch ↗</div>
+    </div>
+
+    <div class="media-card" data-type="short" style="--card-accent:#2EC4B6" onclick="window.open('https://www.youtube.com/shorts/lbjZAa2lA_E','_blank')">
+      <div class="card-type">Short-Form · Ask Jake</div>
+      <div class="card-title">Galaxy Member NFTs &amp; VeBetterDAO — Ask Jake Anything</div>
+      <div class="card-outlet"><strong>VeChain YouTube</strong> · 2024</div>
+      <div class="card-notes">562 views.</div>
+      <div class="card-link">Watch ↗</div>
+    </div>
+
+    <div class="media-card" data-type="short" style="--card-accent:#2EC4B6" onclick="window.open('https://www.youtube.com/shorts/aT4xIpV2iOs','_blank')">
+      <div class="card-type">Short-Form · Ask Jake</div>
+      <div class="card-title">Can You Only VOT3 on Sundays? — Ask Jake Anything</div>
+      <div class="card-outlet"><strong>VeChain YouTube</strong> · 2024</div>
+      <div class="card-notes">553 views.</div>
+      <div class="card-link">Watch ↗</div>
+    </div>
+
+    <div class="media-card" data-type="short" style="--card-accent:#2EC4B6" onclick="window.open('https://www.youtube.com/watch?v=_vwfTfK0TLA','_blank')">
+      <div class="card-type">Short-Form · Ask Jake</div>
+      <div class="card-title">Unveiling VOT3: The Governance Token Demystified</div>
+      <div class="card-outlet"><strong>VeChain YouTube</strong> · 2024</div>
+      <div class="card-notes">491 views.</div>
+      <div class="card-link">Watch ↗</div>
+    </div>
+
+    <!-- ARTICLES -->
+    <div class="media-card" data-type="article" style="--card-accent:#4CAF82" onclick="window.open('https://beincrypto.com','_blank')">
+      <div class="card-type">Press · Long-form</div>
+      <div class="card-title">Hayabusa Upgrade Deep Dive</div>
+      <div class="card-outlet"><strong>BeInCrypto</strong> · Dec 2025</div>
+      <div class="card-notes">Based on podcast. Extensive direct quoting throughout the piece.</div>
+      <div class="card-link">Read ↗</div>
+    </div>
+
+    <div class="media-card" data-type="article" style="--card-accent:#4CAF82" onclick="window.open('https://cryptonewsflash.com','_blank')">
+      <div class="card-type">Press</div>
+      <div class="card-title">StarGate Staking Program — Announcement Coverage</div>
+      <div class="card-outlet"><strong>Crypto News Flash</strong> · Apr 2025</div>
+      <div class="card-notes">Names Jake as Renaissance livestream co-host &amp; primary spokesperson.</div>
+      <div class="card-link">Read ↗</div>
+    </div>
+
+    <div class="media-card" data-type="article" style="--card-accent:#4CAF82" onclick="window.open('https://cryptonewsflash.com','_blank')">
+      <div class="card-type">Press</div>
+      <div class="card-title">VeBetter Ecosystem — Jake Quoted &amp; Video Featured</div>
+      <div class="card-outlet"><strong>Crypto News Flash</strong> · Jul 2025</div>
+      <div class="card-notes">Quoted and featured in embedded video clip.</div>
+      <div class="card-link">Read ↗</div>
+    </div>
+
+    <div class="media-card" data-type="article" style="--card-accent:#4CAF82" onclick="window.open('https://coingeek.com','_blank')">
+      <div class="card-type">Press · Conference</div>
+      <div class="card-title">LBC 2024 — PoA Panel Live Coverage</div>
+      <div class="card-outlet"><strong>CoinGeek</strong> · May 2024</div>
+      <div class="card-notes">Day 2 live-blog featuring Jake's contributions on PoA and enterprise ESG.</div>
+      <div class="card-link">Read ↗</div>
+    </div>
+
+    <div class="media-card" data-type="article" style="--card-accent:#4CAF82" onclick="window.open('https://medium.com/vechain-foundation','_blank')">
+      <div class="card-type">Press · Announcement</div>
+      <div class="card-title">VeChain MaaS Platform Launch with Gresini Racing</div>
+      <div class="card-outlet"><strong>VeChain Medium</strong> · Mar 2024</div>
+      <div class="card-notes">Quoted as Communications Lead on MaaS tokenization announcement.</div>
+      <div class="card-link">Read ↗</div>
+    </div>
+
+    <div class="media-card" data-type="article" style="--card-accent:#4CAF82" onclick="window.open('https://coinspeaker.com','_blank')">
+      <div class="card-type">Press</div>
+      <div class="card-title">VeChain &amp; Gresini Racing: MaaS Tokenization</div>
+      <div class="card-outlet"><strong>CoinSpeaker</strong> · Mar 2024</div>
+      <div class="card-notes">Cites Jake's quote on MaaS platform launch.</div>
+      <div class="card-link">Read ↗</div>
+    </div>
+
+    <!-- PROFILES -->
+    <div class="media-card" data-type="profile" style="--card-accent:#D4845A" onclick="window.open('https://londonblockchain.net/speakers','_blank')">
+      <div class="card-type">Profile · Speaker</div>
+      <div class="card-title">London Blockchain Conference — Official Speaker Profile</div>
+      <div class="card-outlet"><strong>LBC</strong> · 2024 &amp; 2025</div>
+      <div class="card-notes">Bio references VeChain, sustainability focus, CREAM LLC, VIMworld, OPEN Health background.</div>
+      <div class="card-link">View ↗</div>
+    </div>
+
+    <div class="media-card" data-type="profile" style="--card-accent:#D4845A" onclick="window.open('https://twitter.com/vechainofficial','_blank')">
+      <div class="card-type">Profile · Social</div>
+      <div class="card-title">VeChain Renaissance Livestream Announcement</div>
+      <div class="card-outlet"><strong>VeChain X / Twitter</strong> · Apr 2025</div>
+      <div class="card-notes">Official post from @VeChainOfficial (200k+ followers) naming Jake as host.</div>
+      <div class="card-link">View ↗</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="cta-section" id="contact">
+  <p class="section-label">04 — Contact</p>
+  <h2 class="cta-title">Let's build<br>something <em>remarkable</em></h2>
+  <p class="cta-sub">Open to senior communications and strategy roles in tech, Web3, and high-growth environments.</p>
+  <div class="cta-links">
+    <a href="https://www.linkedin.com/in/jakecampton" target="_blank" class="btn btn-primary">
+      LinkedIn
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
+    <a href="Jake_Campton_CV_Generic_v2.docx" class="btn btn-ghost">
+      Download CV
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Jake Campton</span>
+  <span>Head of Communications &amp; Social Media · Blockchain Since 2018</span>
+  <a href="https://www.linkedin.com/in/jakecampton" target="_blank">linkedin.com/in/jakecampton</a>
+</footer>
+
+<script>
+// ── FILTER ──────────────────────────────────────────────────────────────────
+const filterBtns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.media-card');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    cards.forEach(card => {
+      if (filter === 'all' || card.dataset.type === filter) {
+        card.removeAttribute('data-hidden');
+      } else {
+        card.setAttribute('data-hidden', 'true');
+      }
+    });
+  });
+});
+
+// ── SCROLL REVEAL ────────────────────────────────────────────────────────────
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      entry.target.style.transitionDelay = `${(i % 3) * 0.1}s`;
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
