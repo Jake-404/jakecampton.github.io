@@ -3,1018 +3,741 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Jake Campton — The strategist behind the story</title>
-<meta name="description" content="Communications and narrative strategy leader. 9 years turning complex products into stories that drive adoption at scale.">
+<meta name="anthropic-content-type" content="document">
+<title>Jake Campton — Portfolio, Issue Nº 9</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600&family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+/* ═══ Clay & Moss ═══ */
 :root{
-  --bg:#070709; --bg2:#0d0e13; --bg3:#15171e;
-  --t1:#ece9df; --t2:#9b9ea7; --t3:#4d515a;
-  --ac:#c9a55a; --ac2:#e8c97a;
-  --bd:rgba(255,255,255,.07);
-  --sf:'Instrument Serif',Georgia,serif;
-  --sn:'Bricolage Grotesque',system-ui,sans-serif;
-  --sm:'JetBrains Mono',ui-monospace,monospace;
+  --bg:#efe9dd; --bg-soft:#e6dfd0; --bg-deep:#d9d0bc; --bg-paper:#f4efe4;
+  --ink:#1d1f1a; --ink-2:#4a4c44; --ink-3:#8c8e82;
+  --moss:#4e7a3f; --moss-deep:#375b2d; --terra:#b5633a; --cream:#e8d5c2;
+  --rule:rgba(29,31,26,.14); --rule-2:rgba(29,31,26,.07);
+  --display:'Fraunces',ui-serif,Georgia,serif;
+  --body:'Inter Tight',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
   --e:cubic-bezier(.16,1,.3,1);
   --e2:cubic-bezier(.7,0,.2,1);
 }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:var(--sn);background:var(--bg);color:var(--t1);line-height:1.7;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none}
-::selection{background:var(--ac);color:var(--bg)}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--body);font-weight:300;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none}
+::selection{background:var(--moss);color:var(--bg)}
 a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:none;color:inherit;background:none;border:0}
 img{display:block;max-width:100%}
-button{font-family:inherit;cursor:none}
 
-/* ═══ WebGL canvas behind everything ═══ */
-#fx{position:fixed;inset:0;width:100%;height:100%;z-index:-2;display:block}
-#noise{position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.35;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")}
+/* Backdrop */
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:-2;display:block;background:var(--bg)}
+#grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.28;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-/* ═══ Cursor ═══ */
-.cur-dot{position:fixed;width:5px;height:5px;background:var(--ac);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:plus-lighter;transition:width .3s var(--e),height .3s var(--e),background .3s}
-.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(232,201,122,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s var(--e),height .3s var(--e),border-color .3s,background .3s}
-body.hov .cur-ring{width:74px;height:74px;border-color:rgba(232,201,122,.85);background:rgba(232,201,122,.04)}
-body.hov .cur-dot{width:3px;height:3px}
-body.grab .cur-ring{width:24px;height:24px;background:var(--ac)}
-
-/* ═══ Nav ═══ */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.3rem 2.5rem;display:flex;justify-content:space-between;align-items:center;transition:background .45s var(--e),padding .45s,border-color .45s;border-bottom:1px solid transparent;font-family:var(--sn)}
-nav.scrolled{background:rgba(7,7,9,.8);backdrop-filter:blur(22px) saturate(1.2);-webkit-backdrop-filter:blur(22px) saturate(1.2);border-color:var(--bd);padding:.95rem 2.5rem}
-.nn{font-family:var(--sf);font-size:1.1rem;letter-spacing:.01em}
-.nn em{color:var(--ac);font-style:italic}
-.nav-right{display:flex;align-items:center;gap:2.4rem}
-.nl{display:flex;gap:1.9rem;list-style:none}
-.nl a{font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);transition:color .25s;position:relative}
-.nl a::after{content:'';position:absolute;left:50%;bottom:-6px;width:0;height:1px;background:var(--ac);transition:width .3s var(--e),left .3s}
-.nl a:hover{color:var(--t1)}
-.nl a:hover::after{width:100%;left:0}
-.nav-avail{display:flex;align-items:center;gap:.55rem;font-size:.66rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);padding:.42rem .95rem;border:1px solid var(--bd);border-radius:100px;background:rgba(255,255,255,.025)}
-.avail-dot{width:7px;height:7px;background:#4ade80;border-radius:50%;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,222,128,.5)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(74,222,128,0)}}
-
-/* ═══ Hero ═══ */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:10rem 2.5rem 6rem;max-width:1440px;margin:0 auto;position:relative}
-.hero-eyebrow{font-family:var(--sm);font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);margin-bottom:1.4rem;display:flex;align-items:center;gap:.8rem;opacity:0;animation:fu .9s var(--e) .25s forwards}
-.hero-eyebrow::before{content:'';width:34px;height:1px;background:var(--ac)}
-.hero-photo{position:absolute;top:11rem;right:2.5rem;width:110px;height:140px;border-radius:6px;object-fit:cover;object-position:center top;border:1px solid rgba(232,201,122,.2);filter:grayscale(25%) contrast(1.05);opacity:0;animation:fu .9s var(--e) .35s forwards;transition:transform .6s var(--e);will-change:transform}
-.hero-title{font-family:var(--sf);font-size:clamp(3.6rem,10vw,10rem);line-height:.98;letter-spacing:-.024em;font-weight:400;margin-bottom:2rem;max-width:18ch}
-.hero-title em,.hero-title em .ch{font-style:italic;background:linear-gradient(135deg,#f3dd9a 0%,#c9a55a 50%,#9a7a3a 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--ac)}
-.hero-title .ch{display:inline-block;transform:translateY(110%);opacity:0;animation:chIn 1.1s var(--e2) forwards}
-.hero-title .sp{display:inline-block;width:.24em}
-.hero-sub{font-size:1.08rem;color:var(--t2);max-width:580px;margin-bottom:3.5rem;font-weight:300;line-height:1.65;opacity:0;animation:fu .9s var(--e) 1.1s forwards}
-.hero-sub em{color:var(--t1);font-style:normal;font-weight:400}
-.hero-role{font-family:var(--sm);font-size:.72rem;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem;opacity:0;animation:fu .9s var(--e) 1.3s forwards}
-.hero-role span{color:var(--ac)}
-.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-top:1.5rem;opacity:0;animation:fu .9s var(--e) 1.5s forwards;flex-wrap:wrap}
-.hero-brands{max-width:320px}
-.hero-brands-label{font-family:var(--sm);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);margin-bottom:.65rem;display:flex;align-items:center;gap:.6rem}
-.hero-brands-label::before{content:'◆';color:var(--ac);font-size:.55rem}
-.hero-brands-names{font-size:.88rem;color:var(--t2);line-height:1.85;font-family:var(--sf)}
-.hero-brands-names b{color:var(--t1);font-weight:400}
-.scroll-hint{position:absolute;bottom:2rem;left:2.5rem;display:flex;align-items:center;gap:.8rem;font-family:var(--sm);font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);opacity:0;animation:fu .9s var(--e) 1.8s forwards}
-.scroll-hint .line{width:32px;height:1px;background:var(--t3);position:relative;overflow:hidden}
-.scroll-hint .line::after{content:'';position:absolute;left:-32px;top:0;width:32px;height:1px;background:var(--ac);animation:slide 2.5s ease-in-out infinite}
-@keyframes slide{0%{left:-32px}60%,100%{left:32px}}
-
-@keyframes fu{to{opacity:1;transform:translateY(0)}}
-@keyframes chIn{to{transform:translateY(0);opacity:1}}
-
-/* ═══ ACT 2 — Pinned numbers ═══ */
-.act-numbers{height:500vh;position:relative}
-.act-numbers-stage{position:sticky;top:0;height:100vh;width:100%;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.act-rail{position:absolute;top:3rem;left:2.5rem;right:2.5rem;display:flex;justify-content:space-between;align-items:center;font-family:var(--sm);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);z-index:5}
-.act-rail .dots{display:flex;gap:.55rem}
-.act-rail .dot{width:6px;height:6px;border-radius:50%;background:var(--t3);opacity:.4;transition:all .4s var(--e)}
-.act-rail .dot.on{background:var(--ac);opacity:1;box-shadow:0 0 14px var(--ac)}
-.num-slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity .5s var(--e),transform .9s var(--e2);pointer-events:none;padding:0 2rem}
-.num-slide.on{opacity:1;pointer-events:auto}
-.num-slide .pre{font-family:var(--sm);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ac);margin-bottom:2rem;opacity:.85}
-.num-slide .n{font-family:var(--sf);font-style:italic;font-weight:400;font-size:clamp(10rem,32vw,28rem);line-height:.85;letter-spacing:-.045em;background:linear-gradient(180deg,#f7e3a9 0%,#c9a55a 55%,#6b4f23 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 4px 40px rgba(201,165,90,.15))}
-.num-slide .sub{font-family:var(--sf);font-size:clamp(1.4rem,2.8vw,2.3rem);font-weight:400;color:var(--t1);margin-top:.8rem;max-width:22ch;text-align:center;letter-spacing:-.01em;line-height:1.2}
-.num-slide .sub em{font-style:italic;color:var(--ac)}
-.num-slide .cap{font-family:var(--sm);font-size:.7rem;color:var(--t3);letter-spacing:.14em;text-transform:uppercase;margin-top:1.6rem}
-.num-bg-word{position:absolute;font-family:var(--sf);font-style:italic;font-size:clamp(8rem,22vw,22rem);font-weight:400;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.035);white-space:nowrap;letter-spacing:-.025em;pointer-events:none;user-select:none;top:50%;left:50%;transform:translate(-50%,-50%);animation:drift 26s linear infinite;z-index:-1}
-@keyframes drift{from{transform:translate(-55%,-50%)}to{transform:translate(-45%,-50%)}}
-
-/* ═══ Divider ═══ */
-.dv{height:1px;background:linear-gradient(to right,transparent,var(--bd) 20%,var(--bd) 80%,transparent);max-width:1440px;margin:0 auto}
-
-/* ═══ Sections ═══ */
-section{max-width:1440px;margin:0 auto;padding:7rem 2.5rem;position:relative}
-.s-num{position:absolute;right:2.5rem;top:5.5rem;font-family:var(--sf);font-size:8rem;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.045);pointer-events:none;user-select:none;font-style:italic}
-.lb{font-family:var(--sm);font-size:.68rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ac);margin-bottom:1.1rem;display:flex;align-items:center;gap:.7rem}
-.lb::before{content:'';width:26px;height:1px;background:var(--ac)}
-.st2{font-family:var(--sf);font-size:clamp(2.2rem,4vw,3.4rem);line-height:1.1;margin-bottom:3.2rem;font-weight:400;letter-spacing:-.014em;max-width:22ch}
-.st2 em{font-style:italic;color:var(--ac)}
-
-/* ═══ About ═══ */
-.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:start}
-.about-text p{color:var(--t2);margin-bottom:1.25rem;font-size:.99rem;line-height:1.8}
-.about-text p strong{color:var(--t1);font-weight:400;background:linear-gradient(to right,rgba(232,201,122,.12),rgba(232,201,122,0));padding:.05rem .2rem}
-.about-text p:first-child::first-letter{font-family:var(--sf);font-size:3.6rem;float:left;line-height:.95;margin-right:.5rem;margin-top:.15rem;color:var(--ac);font-style:italic}
-.about-meta{display:flex;gap:1.5rem;margin-top:2rem;font-family:var(--sm);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
-.about-meta span{display:flex;align-items:center;gap:.5rem}
-.about-meta span::before{content:'';width:6px;height:6px;background:var(--ac);border-radius:50%}
-
-/* ═══ Skills magnetic cloud ═══ */
-.skill-cloud{position:relative;min-height:420px;background:linear-gradient(135deg,rgba(255,255,255,.015),transparent);border:1px solid var(--bd);border-radius:14px;padding:2rem;overflow:hidden}
-.skill-cloud::before{content:'';position:absolute;inset:0;background:radial-gradient(600px 260px at var(--mx,50%) var(--my,50%),rgba(232,201,122,.08),transparent);pointer-events:none;transition:background .15s}
-.sk{display:inline-block;padding:.5rem 1rem;margin:.3rem;border-radius:100px;font-size:.78rem;font-weight:400;border:1px solid var(--bd);color:var(--t2);background:rgba(255,255,255,.02);transition:border-color .3s,color .3s,background .3s,transform .5s var(--e);position:relative;will-change:transform;letter-spacing:.01em}
-.sk.c{border-color:rgba(232,201,122,.35);color:var(--ac2);background:rgba(232,201,122,.06)}
-.sk:hover{border-color:rgba(232,201,122,.7);color:var(--t1);background:rgba(232,201,122,.12)}
-.sg-head{font-family:var(--sm);font-size:.64rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin:1.4rem 0 .6rem;padding-bottom:.35rem;border-bottom:1px solid var(--bd)}
-.sg-head:first-child{margin-top:0}
-
-/* ═══ Experience ═══ */
-.exp-wrap{position:relative;margin-top:1rem}
-.exp-line{position:absolute;left:170px;top:0;bottom:0;width:1px;background:var(--bd);z-index:0}
-.exp-line-fill{position:absolute;left:170px;top:0;width:1px;background:linear-gradient(to bottom,var(--ac),var(--ac2),transparent);height:0;z-index:1;transition:height .4s var(--e);box-shadow:0 0 14px var(--ac)}
-.exp-item{display:grid;grid-template-columns:170px 1fr;gap:3rem;padding:3rem 0;border-bottom:1px solid var(--bd);position:relative;z-index:2;transition:background .4s var(--e)}
-.exp-item:hover{background:linear-gradient(90deg,transparent,rgba(232,201,122,.025) 40%,transparent)}
-.exp-item:first-child{border-top:1px solid var(--bd)}
-.exp-item::after{content:'';position:absolute;left:165px;top:3rem;width:11px;height:11px;border-radius:50%;border:1px solid var(--ac);background:var(--bg);transition:all .3s var(--e)}
-.exp-item:hover::after{background:var(--ac);box-shadow:0 0 0 6px rgba(232,201,122,.1),0 0 20px var(--ac)}
-.exp-date{font-family:var(--sm);font-size:.76rem;font-weight:500;letter-spacing:.08em;color:var(--t3);padding-top:.4rem;line-height:1.5}
-.exp-date b{color:var(--t2);font-weight:500}
-.exp-content h3{font-family:var(--sf);font-size:1.5rem;font-weight:400;margin-bottom:.25rem;letter-spacing:-.01em}
-.exp-co{font-size:.84rem;color:var(--ac);margin-bottom:1rem;font-weight:500;letter-spacing:.01em}
-.exp-co span{color:var(--t3);font-weight:400;margin-left:.4rem}
-.exp-desc{color:var(--t2);font-size:.95rem;margin-bottom:.95rem;line-height:1.7;max-width:72ch}
-.exp-bullets{list-style:none;max-width:72ch}
-.exp-bullets li{color:var(--t2);font-size:.88rem;padding:.35rem 0 .35rem 1.5rem;position:relative;line-height:1.65}
-.exp-bullets li::before{content:'';position:absolute;left:0;top:1rem;width:8px;height:1px;background:var(--ac)}
-
-/* ═══ Marquee ═══ */
-.marquee-wrap{max-width:100%;margin:4rem auto 0;padding:3rem 0;overflow:hidden;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);position:relative}
-.marquee-wrap::before,.marquee-wrap::after{content:'';position:absolute;top:0;bottom:0;width:180px;z-index:3;pointer-events:none}
-.marquee-wrap::before{left:0;background:linear-gradient(to right,var(--bg),transparent)}
-.marquee-wrap::after{right:0;background:linear-gradient(to left,var(--bg),transparent)}
-.marquee{display:flex;gap:3.5rem;animation:mq 36s linear infinite;font-family:var(--sf);font-size:2.4rem;color:var(--t2);white-space:nowrap;font-weight:400;letter-spacing:-.01em}
-.marquee span{display:inline-flex;align-items:center;gap:3.5rem}
-.marquee span::after{content:'◆';color:var(--ac);font-size:.9rem;opacity:.7}
-.marquee em{color:var(--t1);font-style:italic}
-@keyframes mq{to{transform:translateX(-50%)}}
-
-/* ═══ Writing / Media grids ═══ */
-.filter-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem}
-.filter-row button{padding:.48rem 1.2rem;border-radius:100px;font-size:.72rem;font-weight:500;letter-spacing:.06em;border:1px solid var(--bd);color:var(--t2);background:transparent;transition:all .3s var(--e);font-family:var(--sn)}
-.filter-row button:hover{border-color:rgba(232,201,122,.45);color:var(--t1)}
-.filter-row button.on{background:var(--ac);color:var(--bg);border-color:var(--ac);box-shadow:0 0 24px rgba(232,201,122,.25)}
-
-.g-outlets{display:flex;flex-wrap:wrap;gap:1.1rem 1.8rem;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--bd)}
-.g-outlets span{font-size:.82rem;color:var(--t3);letter-spacing:.04em;font-family:var(--sf);font-style:italic;transition:color .25s}
-.g-outlets span:hover{color:var(--ac)}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1px;background:var(--bd);margin-top:1px}
-.card{background:var(--bg);padding:0;transition:all .4s var(--e);position:relative;overflow:hidden;border:1px solid transparent;display:flex;flex-direction:column}
-.card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(232,201,122,.08),transparent 60%);opacity:0;transition:opacity .35s;pointer-events:none;z-index:2}
-.card:hover{background:var(--bg2);border-color:rgba(232,201,122,.18)}
-.card:hover::before{opacity:1}
-.card[data-h]{display:none}
-.c-thumb{height:160px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:flex-end;padding:.8rem}
-.c-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78) 0%,transparent 55%);z-index:1}
-.c-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .7s var(--e)}
-.card:hover .c-thumb img{transform:scale(1.06)}
-.c-thumb-outlet{position:relative;z-index:2;font-family:var(--sm);font-size:.66rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.92)}
-.c-thumb-type{position:absolute;top:.7rem;left:.8rem;z-index:2;font-family:var(--sm);font-size:.58rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.26rem .7rem;border-radius:100px;background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.85);backdrop-filter:blur(6px)}
-.c-thumb-views{position:absolute;top:.7rem;right:.8rem;z-index:2;font-family:var(--sm);font-size:.64rem;font-weight:500;color:var(--ac2);background:rgba(0,0,0,.62);padding:.24rem .6rem;border-radius:100px;border:1px solid rgba(232,201,122,.2)}
-/* gradient fallbacks when no img */
-.c-thumb[data-outlet="cointelegraph"]{background:linear-gradient(135deg,#1a1510,#2d2418)}
-.c-thumb[data-outlet="beincrypto"]{background:linear-gradient(135deg,#0e0e22,#1a1a3a)}
-.c-thumb[data-outlet="coingeek"]{background:linear-gradient(135deg,#0a1520,#102030)}
-.c-thumb[data-outlet="vechain"]{background:linear-gradient(135deg,#071628,#0e2440)}
-.c-thumb[data-outlet="ccs"]{background:linear-gradient(135deg,#0a1a14,#102a20)}
-.c-thumb[data-outlet="lbc"]{background:linear-gradient(135deg,#12102a,#1e1c40)}
-.c-thumb[data-outlet="xspaces"]{background:linear-gradient(135deg,#081018,#101a28)}
-.c-thumb[data-outlet="mycrypto"]{background:linear-gradient(135deg,#0e0a18,#1a1428)}
-.c-thumb[data-outlet="medium"]{background:linear-gradient(135deg,#0a0f0a,#141a14)}
-.c-thumb[data-outlet="article"]{background:linear-gradient(135deg,#1a1f2e,#2a3044)}
-.c-thumb[data-outlet="announce"]{background:linear-gradient(135deg,#1a2318,#2a3828)}
-.c-thumb[data-outlet="campaign"]{background:linear-gradient(135deg,#241520,#3a2234)}
-.c-thumb[data-outlet="thread"]{background:linear-gradient(135deg,#101820,#1a2a38)}
-.c-thumb-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(1);font-size:2rem;opacity:.6;z-index:2;transition:transform .5s var(--e),opacity .3s}
-.card:hover .c-thumb-icon{transform:translate(-50%,-50%) scale(1.15);opacity:.9}
-.c-body{padding:1.4rem 1.5rem 1.6rem;position:relative;z-index:3}
-.c-cat{font-family:var(--sm);font-size:.62rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);margin-bottom:.65rem}
-.card h4{font-family:var(--sf);font-size:1.08rem;font-weight:400;margin-bottom:.45rem;line-height:1.38;letter-spacing:-.005em}
-.c-source{font-size:.76rem;color:var(--t3);margin-bottom:.55rem}
-.c-source strong{color:var(--t2);font-weight:500}
-.c-desc{font-size:.82rem;color:var(--t2);line-height:1.65}
-.c-excerpt{font-size:.85rem;color:var(--t2);line-height:1.7;margin:.8rem 0;border-left:2px solid rgba(232,201,122,.35);padding:.1rem 0 .1rem 1rem;font-style:italic}
-.c-link{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--sm);font-size:.7rem;font-weight:500;color:var(--ac);margin-top:.95rem;letter-spacing:.04em;text-transform:uppercase;transition:gap .25s}
-.c-link:hover{gap:.7rem;color:var(--ac2)}
-.show-all-wrap{text-align:center;padding:2.5rem 0 0;margin-top:1px;border-top:1px solid var(--bd)}
-.show-all-btn{background:transparent;border:1px solid var(--bd);color:var(--t2);font-family:var(--sm);font-size:.74rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:.75rem 1.9rem;border-radius:100px;transition:all .3s var(--e)}
-.show-all-btn:hover{border-color:var(--ac);color:var(--t1);background:rgba(232,201,122,.06)}
-
-/* ═══ Contact ═══ */
-#contact{text-align:center;max-width:1000px;padding:9rem 2.5rem}
-.contact-tagline{font-family:var(--sf);font-size:clamp(3rem,8vw,7rem);line-height:1;letter-spacing:-.028em;margin-bottom:2rem}
-.contact-tagline em{font-style:italic;color:var(--ac);display:inline-block;background:linear-gradient(135deg,#f3dd9a 0%,#c9a55a 50%,#9a7a3a 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;position:relative}
-.contact-tagline em::after{content:'';position:absolute;left:0;right:0;bottom:-.15em;height:3px;background:linear-gradient(to right,transparent,var(--ac),transparent);opacity:.55}
-.contact-sub{font-size:1.05rem;color:var(--t2);max-width:620px;margin:0 auto 3.5rem;line-height:1.65}
-.contact-links{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.cb{padding:1.05rem 2.3rem;border-radius:100px;font-family:var(--sn);font-size:.8rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;transition:all .3s var(--e);position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:.6rem}
-.cb.p{background:var(--ac);color:var(--bg);border:1px solid var(--ac)}
-.cb.p:hover{background:var(--ac2);border-color:var(--ac2);box-shadow:0 0 40px rgba(232,201,122,.4);transform:translateY(-2px)}
-.cb.s{background:transparent;color:var(--t1);border:1px solid var(--bd)}
-.cb.s:hover{border-color:var(--ac);color:var(--ac);background:rgba(232,201,122,.06);transform:translateY(-2px)}
-
-footer{border-top:1px solid var(--bd);padding:2.5rem 2.5rem;max-width:1440px;margin:0 auto;display:flex;justify-content:space-between;font-family:var(--sm);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);flex-wrap:wrap;gap:1rem}
-footer a:hover{color:var(--ac)}
+/* Cursor */
+.cur-dot{position:fixed;left:0;top:0;width:6px;height:6px;background:var(--moss);border-radius:50%;pointer-events:none;z-index:9999;margin-left:-3px;margin-top:-3px;mix-blend-mode:multiply;transition:width .35s var(--e),height .35s var(--e)}
+.cur-ring{position:fixed;left:0;top:0;width:34px;height:34px;border:1px solid var(--moss);border-radius:50%;pointer-events:none;z-index:9998;margin-left:-17px;margin-top:-17px;mix-blend-mode:multiply;transition:width .35s var(--e),height .35s var(--e),background .4s}
+body.hov .cur-ring{width:64px;height:64px;margin-left:-32px;margin-top:-32px;background:color-mix(in oklab,var(--moss) 8%,transparent)}
+body.hov .cur-dot{width:3px;height:3px;margin-left:-1.5px;margin-top:-1.5px}
 
 /* Reveal */
-.rv{opacity:0;transform:translateY(28px);transition:opacity 1s var(--e),transform 1s var(--e)}
+.rv{opacity:0;transform:translateY(22px);transition:opacity 1s var(--e),transform 1s var(--e)}
 .rv.v{opacity:1;transform:none}
-.rv.d1{transition-delay:.08s}
-.rv.d2{transition-delay:.16s}
-.rv.d3{transition-delay:.24s}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FLOW A — EDITORIAL MAGAZINE
+   Cover page, contents, chapters with pull quotes + margin notes
+   ═══════════════════════════════════════════════════════════════════ */
+#flowA .mag-cover{
+  min-height:100vh;max-width:1280px;margin:0 auto;padding:7rem 3rem 4rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;position:relative;
+}
+#flowA .mag-cover::before{
+  content:'';position:absolute;top:6rem;left:3rem;right:3rem;height:1px;background:var(--ink);
+}
+.mag-masthead{
+  position:absolute;top:2.2rem;left:3rem;right:3rem;
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-family:var(--mono);font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);
+}
+.mag-masthead .issue{font-family:var(--display);font-style:italic;font-size:1.05rem;letter-spacing:0;text-transform:none;color:var(--terra)}
+.mag-cover-left .kicker{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);margin-bottom:2rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.mag-cover-left .kicker::before{content:'';width:34px;height:1px;background:var(--terra)}
+.mag-cover-left h1{
+  font-family:var(--display);font-size:clamp(3rem,8vw,8rem);line-height:.92;
+  font-weight:400;letter-spacing:-.028em;margin-bottom:1.6rem;
+  font-variation-settings:"opsz" 144,"SOFT" 30;
+}
+.mag-cover-left h1 em{font-style:italic;color:var(--moss);display:block}
+.mag-cover-left .byline{
+  font-family:var(--display);font-style:italic;font-size:1.4rem;color:var(--ink-2);margin-bottom:2rem;
+}
+.mag-cover-left .byline b{color:var(--ink);font-weight:500;font-style:normal}
+.mag-cover-left .dek{font-size:1rem;color:var(--ink-2);max-width:44ch;line-height:1.7}
+.mag-cover-right{
+  position:relative;padding-bottom:1rem;
+}
+.mag-portrait{
+  width:100%;aspect-ratio:3/4;background:var(--bg-soft);
+  border:1px solid var(--rule);border-radius:4px;position:relative;overflow:hidden;
+}
+.mag-portrait img{
+  width:100%;height:100%;object-fit:cover;object-position:center 28%;
+  filter:saturate(.78) contrast(1.03);
+  transition:transform 1.6s var(--e),filter .8s var(--e);
+}
+.mag-portrait:hover img{transform:scale(1.03);filter:saturate(.95) contrast(1.05)}
+.mag-portrait::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 55%,color-mix(in oklab,var(--ink) 28%,transparent) 100%);
+  mix-blend-mode:multiply;
+}
+.mag-portrait .tag{
+  position:absolute;left:1rem;bottom:.9rem;z-index:2;
+  font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bg);
+}
+.mag-caption{
+  margin-top:.9rem;font-family:var(--display);font-style:italic;font-size:.88rem;color:var(--ink-2);
+  padding-left:1rem;border-left:2px solid var(--terra);line-height:1.5;
+}
+.mag-cover-bottom{
+  grid-column:1/-1;margin-top:3rem;padding-top:1.6rem;border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;align-items:baseline;gap:2rem;flex-wrap:wrap;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);
+}
+.mag-cover-bottom b{color:var(--ink)}
+
+/* Contents */
+.mag-contents{
+  max-width:1040px;margin:0 auto;padding:6rem 3rem;position:relative;
+}
+.mag-contents h2{
+  font-family:var(--display);font-style:italic;font-size:clamp(2.4rem,5vw,4rem);
+  font-weight:400;letter-spacing:-.02em;margin-bottom:3rem;color:var(--ink);
+}
+.mag-toc{
+  display:grid;grid-template-columns:auto 1fr auto auto;gap:.2rem 1.4rem;
+}
+.mag-toc .row{display:contents;cursor:none;transition:opacity .35s var(--e)}
+.mag-toc .row:hover .ttl,.mag-toc .row:hover .num{color:var(--moss)}
+.mag-toc .row:hover .ttl em{color:var(--terra)}
+.mag-toc .row>*{
+  padding:1.2rem 0;border-bottom:1px dotted var(--rule);
+  font-family:var(--display);font-size:1.25rem;color:var(--ink);
+  display:flex;align-items:center;
+}
+.mag-toc .num{color:var(--terra);font-style:italic;font-weight:400;letter-spacing:-.01em;min-width:2.5rem}
+.mag-toc .ttl{font-weight:400}
+.mag-toc .ttl em{font-style:italic;color:var(--moss);margin:0 0.22em}
+.mag-toc .kind{font-family:var(--mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);justify-content:flex-end;gap:.6rem}
+.mag-toc .kind::before{content:'';width:30px;height:1px;background:var(--ink-3)}
+.mag-toc .pg{font-family:var(--mono);font-size:.82rem;color:var(--ink-2);justify-content:flex-end;min-width:2.5rem}
+
+/* Chapter base */
+.mag-chapter{
+  max-width:1280px;margin:0 auto;padding:7rem 3rem;position:relative;
+}
+.mag-chapter-head{
+  display:grid;grid-template-columns:140px 1fr;gap:2.5rem;margin-bottom:4rem;align-items:baseline;
+  padding-bottom:2.5rem;border-bottom:1px solid var(--rule);
+}
+.mag-ch-num{
+  font-family:var(--display);font-style:italic;font-size:clamp(3rem,7vw,6rem);
+  font-weight:300;color:var(--terra);line-height:1;letter-spacing:-.02em;
+}
+.mag-ch-head h2{
+  font-family:var(--display);font-size:clamp(2.4rem,5.5vw,4.4rem);line-height:1.02;
+  font-weight:400;letter-spacing:-.024em;margin-bottom:.8rem;
+}
+.mag-ch-head h2 em{font-style:italic;color:var(--moss)}
+.mag-ch-head .kicker{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);
+  margin-bottom:1.1rem;display:flex;align-items:center;gap:.7rem;
+}
+.mag-ch-head .kicker::before{content:'';width:28px;height:1px;background:var(--terra)}
+
+/* Chapter columns */
+.mag-cols{display:grid;grid-template-columns:180px 1fr 180px;gap:2.5rem;align-items:start}
+.mag-margin{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--ink-3);line-height:1.6}
+.mag-margin b{color:var(--ink-2);font-weight:500;display:block;margin-bottom:.3rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
+.mag-margin .item{padding:.8rem 0;border-bottom:1px dotted var(--rule)}
+.mag-margin .item:first-child{padding-top:0}
+.mag-margin .item:last-child{border-bottom:0}
+.mag-body{max-width:62ch}
+.mag-body p{color:var(--ink-2);font-size:1.05rem;line-height:1.78;margin-bottom:1.3rem}
+.mag-body p:first-of-type::first-letter{
+  font-family:var(--display);font-style:italic;font-size:4.4rem;float:left;line-height:.88;
+  margin-right:.5rem;margin-top:.2rem;color:var(--moss);font-weight:400;
+}
+.mag-body strong{color:var(--ink);font-weight:500;background:linear-gradient(transparent 62%,var(--cream) 62%);padding:0 .12em}
+.mag-body em{font-style:italic;color:var(--ink)}
+
+.pull-quote{
+  margin:2.5rem 0;padding:1.5rem 0;
+  font-family:var(--display);font-style:italic;font-size:clamp(1.6rem,2.6vw,2.1rem);
+  line-height:1.3;color:var(--ink);letter-spacing:-.01em;
+  border-top:1px solid var(--terra);border-bottom:1px solid var(--terra);
+  position:relative;
+}
+.pull-quote::before{
+  content:'"';font-size:4rem;position:absolute;left:-1.4rem;top:-.8rem;color:var(--terra);line-height:1;font-weight:500;
+}
+.pull-quote .attr{
+  display:block;margin-top:.9rem;font-family:var(--mono);font-style:normal;
+  font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);
+}
+
+.mag-figure{
+  margin:2.5rem 0;padding:2.5rem;
+  background:var(--bg-soft);border-left:3px solid var(--moss);border-radius:2px;
+}
+.mag-figure .fig-label{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);margin-bottom:1rem;
+}
+.mag-figure .fig-row{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1.5rem 2rem;
+}
+.mag-figure .fig-cell .big{
+  font-family:var(--display);font-style:italic;font-size:2.8rem;color:var(--moss);line-height:1;letter-spacing:-.02em;font-weight:400;
+}
+.mag-figure .fig-cell .desc{
+  font-size:.78rem;color:var(--ink-2);margin-top:.5rem;line-height:1.5;
+}
+
+/* Chapter list items (experience) */
+.mag-list{margin-top:1.5rem}
+.mag-list-item{
+  padding:1.6rem 0;border-bottom:1px solid var(--rule-2);
+  display:grid;grid-template-columns:140px 1fr;gap:2rem;
+}
+.mag-list-item .when{font-family:var(--mono);font-size:.72rem;color:var(--ink-3);letter-spacing:.05em;padding-top:.3rem}
+.mag-list-item .when b{color:var(--ink-2);display:block;font-weight:500;margin-bottom:.2rem}
+.mag-list-item h4{font-family:var(--display);font-size:1.25rem;font-weight:400;margin-bottom:.15rem;letter-spacing:-.01em}
+.mag-list-item .co{font-size:.82rem;color:var(--moss);font-weight:500;margin-bottom:.5rem}
+.mag-list-item .co span{color:var(--ink-3);font-weight:400;margin-left:.4rem}
+.mag-list-item p{color:var(--ink-2);font-size:.92rem;line-height:1.7}
+
+/* Contact buttons — kept after Flow C removal (used in Postscript) */
+.cb{
+  padding:.9rem 1.9rem;border-radius:100px;font-family:var(--body);font-size:.72rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;transition:all .3s var(--e);
+  display:inline-flex;align-items:center;gap:.5rem;
+}
+.cb.p{background:var(--ink);color:var(--bg);border:1px solid var(--ink)}
+.cb.p:hover{background:var(--moss);border-color:var(--moss)}
+.cb.s{background:transparent;color:var(--ink);border:1px solid var(--rule)}
+.cb.s:hover{border-color:var(--moss);color:var(--moss)}
+
+/* Postscript close */
+.mag-postscript{max-width:720px;margin:0 auto;text-align:center;padding:1rem 0}
+.mag-postscript p{color:var(--ink-2);font-size:1.1rem;line-height:1.7}
+.mag-postscript p strong{color:var(--ink);font-weight:500}
+.mag-postscript-cta{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin:2.2rem 0 2.6rem}
+.mag-postscript-sign{font-family:var(--display);font-style:italic;font-size:1.5rem;color:var(--moss);letter-spacing:-.01em}
+
+/* Magazine cards — Writing (Part A) and Media (Part B) */
+.mag-cards{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.4rem;margin-top:2.5rem;
+}
+.mag-cards.has-feat{grid-template-columns:repeat(12,1fr)}
+.mag-card{
+  border:1px solid var(--rule);background:var(--bg-paper);border-radius:3px;
+  overflow:hidden;display:flex;flex-direction:column;cursor:none;
+  transition:transform .5s var(--e),border-color .35s,box-shadow .5s var(--e);
+}
+.mag-cards.has-feat .mag-card{grid-column:span 4}
+.mag-card:hover{transform:translateY(-3px);border-color:color-mix(in oklab,var(--moss) 45%,transparent);box-shadow:0 18px 40px color-mix(in oklab,var(--ink) 8%,transparent)}
+.mag-card.feat{grid-column:span 12}
+.mag-card.feat .mc-body{padding:1.8rem 2rem 2rem}
+.mag-card.feat h4{font-size:clamp(1.5rem,2.3vw,2rem);line-height:1.08;max-width:26ch}
+.mag-card.feat .mc-thumb{aspect-ratio:21/9}
+.mc-thumb{
+  aspect-ratio:16/9;background:linear-gradient(135deg,var(--bg-soft),var(--bg-deep));
+  position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  border-bottom:1px solid var(--rule);
+}
+.mc-thumb img{width:100%;height:100%;object-fit:cover;filter:saturate(.8) contrast(1.03);transition:transform 1.1s var(--e)}
+.mag-card:hover .mc-thumb img{transform:scale(1.035)}
+.mc-thumb::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 55%,color-mix(in oklab,var(--ink) 25%,transparent) 100%);
+  mix-blend-mode:multiply;
+}
+.mc-thumb .ico{
+  font-family:var(--display);font-style:italic;font-size:clamp(2.4rem,4vw,3.6rem);
+  color:var(--moss);line-height:1;opacity:.85;letter-spacing:-.02em;
+}
+.mc-thumb .type{
+  position:absolute;top:.75rem;left:.75rem;z-index:2;
+  font-family:var(--mono);font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--bg);color:var(--ink);padding:.32rem .6rem;border-radius:2px;border:1px solid var(--rule);
+}
+.mc-thumb .views{
+  position:absolute;top:.75rem;right:.75rem;z-index:2;
+  font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--moss);color:var(--bg);padding:.32rem .6rem;border-radius:2px;
+}
+.mc-thumb .outlet{
+  position:absolute;bottom:.75rem;left:.75rem;z-index:2;
+  font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--bg);opacity:.9;
+}
+.mc-body{padding:1.3rem 1.3rem 1.5rem;display:flex;flex-direction:column;flex:1}
+.mc-cat{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:.55rem}
+.mag-card h4{font-family:var(--display);font-size:1.12rem;line-height:1.22;font-weight:400;letter-spacing:-.01em;margin-bottom:.55rem;color:var(--ink)}
+.mag-card h4 em{font-style:italic;color:var(--moss)}
+.mc-src{font-family:var(--mono);font-size:.62rem;letter-spacing:.04em;color:var(--ink-3);margin-bottom:.75rem;line-height:1.4}
+.mc-src b{color:var(--ink-2);font-weight:500}
+.mc-ex{color:var(--ink-2);font-size:.88rem;line-height:1.58;margin-bottom:1rem}
+.mc-ex em{font-style:italic;color:var(--ink)}
+.mc-link{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);
+  display:inline-flex;align-items:center;gap:.4rem;margin-top:auto;transition:gap .25s,color .25s;
+}
+.mag-card:hover .mc-link{gap:.75rem;color:var(--moss)}
+
+.mag-outlets{
+  margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:.45rem;
+  padding:1.1rem 0;border-top:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2);
+}
+.mag-outlets span{
+  font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-2);padding:.35rem .7rem;border:1px solid var(--rule);border-radius:100px;
+  background:var(--bg-paper);
+}
 
 /* Responsive */
 @media (max-width:960px){
   body{cursor:auto}.cur-dot,.cur-ring{display:none}
-  .hero-photo{position:static;margin-bottom:2rem;width:88px;height:108px}
-  .hero{padding:9rem 1.3rem 4rem}
-  .nl{display:none}
-  nav{padding:1rem 1.3rem}
-  nav.scrolled{padding:.75rem 1.3rem}
-  section{padding:4.5rem 1.3rem}
-  .about-grid{grid-template-columns:1fr;gap:3rem}
-  .exp-item{grid-template-columns:90px 1fr;gap:1.5rem;padding:2rem 0}
-  .exp-line,.exp-line-fill{left:86px}
-  .exp-item::after{left:81px;top:2rem}
-  .num-slide .n{font-size:22vw}
-  .s-num{font-size:4rem;right:1.3rem;top:4rem}
+  #flowA .mag-cover,#flowA .mag-contents,#flowA .mag-chapter{padding-left:1.4rem;padding-right:1.4rem}
+  #flowA .mag-cover{grid-template-columns:1fr;gap:2rem;padding-top:6rem}
+  .mag-cols{grid-template-columns:1fr;gap:1.5rem}
+  .mag-margin{order:2;padding-top:2rem;border-top:1px solid var(--rule)}
+  .mag-cards,.mag-cards.has-feat{grid-template-columns:1fr}
+  .mag-card,.mag-card.feat{grid-column:auto}
 }
 </style>
 </head>
 <body>
 
 <canvas id="fx"></canvas>
-<div id="noise"></div>
+<div id="grain"></div>
 <div class="cur-dot" id="curDot"></div>
 <div class="cur-ring" id="curRing"></div>
 
-<nav id="nav">
-  <div class="nn">Jake <em>Campton</em></div>
-  <div class="nav-right">
-    <ul class="nl">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#writing">Writing</a></li>
-      <li><a href="#media">Media</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="nav-avail"><span class="avail-dot"></span>Open to opportunities</div>
-  </div>
-</nav>
+</div>
 
-<!-- ─── Hero ─── -->
-<header class="hero">
-  <img src="jake.jpg" alt="Jake Campton" class="hero-photo" id="heroPhoto">
-  <div class="hero-eyebrow">Communications &amp; Narrative Strategy</div>
-  <h1 class="hero-title" id="heroTitle">The strategist behind the <em>story</em>.</h1>
-  <div class="hero-role"><span>VeChain</span> · Head of Communications &amp; Social Media · London, UK</div>
-  <p class="hero-sub"><em>9 years</em> turning complex products into stories that drive adoption at scale — from product launches and C-Suite messaging to partner campaigns and brand spokesperson work. The comms person who does more than comms.</p>
-  <div class="hero-bottom">
-    <div class="hero-brands">
-      <div class="hero-brands-label">Partner campaigns include</div>
-      <div class="hero-brands-names"><b>UFC</b> · <b>Nitto ATP Finals</b> · <b>BCG</b><br><b>Gresini Racing</b> · <b>Power Slap</b></div>
-    </div>
-  </div>
-  <div class="scroll-hint"><span class="line"></span>Scroll — the story unfolds</div>
-</header>
+<!-- ═══════════════════════════════════════════════════════════════════
+     FLOW A — EDITORIAL MAGAZINE
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="flowA" data-screen-label="Magazine">
 
-<!-- ─── ACT 2: Numbers cinematic pinned scroll ─── -->
-<section class="act-numbers" id="numbers">
-  <div class="act-numbers-stage">
-    <div class="num-bg-word" id="bgWord">narrative</div>
-    <div class="act-rail">
-      <span>Act II — By the numbers</span>
-      <div class="dots" id="dots">
-        <span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
-      </div>
-      <span id="railCounter">01 / 04</span>
-    </div>
-    <div class="num-slide on" data-i="0" data-word="scale">
-      <div class="pre">◆ Product launch — VeWorld wallet</div>
-      <div class="n" data-target="5.5">0</div>
-      <div class="sub">million downloads, before the <em>narrative</em> ever slowed down</div>
-      <div class="cap">Go-to-market &middot; sustained adoption</div>
-    </div>
-    <div class="num-slide" data-i="1" data-word="ecosystem">
-      <div class="pre">◆ VeBetter ecosystem — GTM lead</div>
-      <div class="n" data-target="5">0</div>
-      <div class="sub">million users, powered by <em>story</em> + community + partner amplification</div>
-      <div class="cap">X-2-Earn &middot; ecosystem growth</div>
-    </div>
-    <div class="num-slide" data-i="2" data-word="audience">
-      <div class="pre">◆ Social media &mdash; owned audience</div>
-      <div class="n" data-target="2">0</div>
-      <div class="sub">million followers &mdash; shifted from news-led to <em>community-centric</em> (+30%)</div>
-      <div class="cap">Editorial &middot; voice &middot; velocity</div>
-    </div>
-    <div class="num-slide" data-i="3" data-word="spokesperson">
-      <div class="pre">◆ Brand spokesperson</div>
-      <div class="n" data-target="30" data-suffix="+">0</div>
-      <div class="sub">appearances &mdash; <em>on screens, in print</em>, deputising for the CEO</div>
-      <div class="cap">Cointelegraph &middot; BeInCrypto &middot; LBC &middot; BCG</div>
-    </div>
-  </div>
-</section>
+  <!-- Cover -->
+  <section class="mag-cover" data-screen-label="A01 Cover">
+    <div class="mag-masthead">
+      <span>Jake Campton</span>
 
-<div class="dv"></div>
-
-<!-- ─── About ─── -->
-<section id="about">
-  <span class="s-num">01</span>
-  <div class="rv"><div class="lb">01 — About</div><div class="st2">The person behind the <em>platform</em></div></div>
-  <div class="about-grid">
-    <div class="about-text rv d1">
-      <p>Modern communications is much more than messaging — it touches product, partnerships, community, and the C-Suite. Something I know well from my current role, where I head communications and social media at <strong>VeChain</strong>, a global blockchain foundation with 2M+ followers across multiple channels.</p>
-      <p>The day-to-day spans copywriting, narrative strategy, partner and product marketing, KOL management, community engagement, executive comms, and agency coordination. I've supported go-to-market for major product launches, with two achieving over <strong>5 million users each</strong> — VeWorld wallet (5.5M+ downloads) and VeBetter (5M+ users).</p>
-      <p>I've represented VeChain as brand spokesperson with <strong>30+ appearances</strong> across conferences, podcasts, events, and livestreams — from Innovation Stage panels at the London Blockchain Conference alongside BCG, to solo episodes on Cointelegraph and BeInCrypto. When the CEO isn't available, I step in.</p>
-      <p>I hold a Master's in Science Communication — a discipline built on clarity, precision, and empathy for the audience. That foundation shows up in everything: from long-form content strategy to a 30-second elevator pitch.</p>
-      <p>9+ years across blockchain, healthcare, and agency environments. Still energised by the work.</p>
-      <div class="about-meta">
-        <span>London · UK</span><span>Remote / Hybrid</span><span>Open to roles</span>
-      </div>
+      <span>London · 2026</span>
     </div>
-    <div class="skill-cloud rv d2" id="skillCloud">
-      <div class="sg-head">Core Capabilities</div>
-      <div>
-        <span class="sk c">Product &amp; Launch Comms</span><span class="sk c">Product Marketing</span><span class="sk c">Narrative &amp; Messaging</span><span class="sk c">Go-to-Market Storytelling</span><span class="sk c">Brand Positioning</span><span class="sk c">Partner &amp; Sponsorship Marketing</span><span class="sk c">Executive Communications</span>
-      </div>
-      <div class="sg-head">Leadership</div>
-      <div>
-        <span class="sk">Brand Spokesperson</span><span class="sk">Agency Onboarding &amp; Management</span><span class="sk">KOL &amp; Ambassador Programmes</span><span class="sk">Community Management</span><span class="sk">Business Development</span><span class="sk">Crisis Communications</span>
-      </div>
-      <div class="sg-head">Execution</div>
-      <div>
-        <span class="sk">Copywriting (Long &amp; Short Form)</span><span class="sk">Editorial Planning</span><span class="sk">Social Media Strategy</span><span class="sk">Campaign Development</span><span class="sk">Media Relations &amp; PR</span><span class="sk">AI &amp; Agentic Workflows</span>
-      </div>
-      <div class="sg-head">Tools</div>
-      <div>
-        <span class="sk">Hootsuite</span><span class="sk">HubSpot</span><span class="sk">Cision</span><span class="sk">Notion</span><span class="sk">Monday.com</span><span class="sk">Canva</span><span class="sk">Claude</span><span class="sk">ChatGPT</span><span class="sk">NotebookLM</span>
-      </div>
+    <div class="mag-cover-left">
+      <div class="kicker"></div>
+      <h1>The strategist <em>behind the story.</em></h1>
+      <div class="byline">Words &amp; work by <b>Jake Campton</b></div>
+      <p class="dek">Nine years driving comms at the intersection of community, social, messaging, partners and product. Portfolio for <b>Head of Communications</b>, <b>Head of Marketing</b>, and <b>Head of Social</b> roles. London, remote-friendly.</p>
+
     </div>
-  </div>
-</section>
-
-<div class="dv"></div>
-
-<!-- ─── Experience ─── -->
-<section id="experience">
-  <span class="s-num">02</span>
-  <div class="rv"><div class="lb">02 — Experience</div><div class="st2">Where the <em>work</em> happened</div></div>
-  <div class="exp-wrap" id="expWrap">
-    <div class="exp-line"></div>
-    <div class="exp-line-fill" id="expFill"></div>
-
-    <div class="exp-item rv">
-      <div class="exp-date"><b>Sep 2024</b><br>— Present</div>
-      <div class="exp-content">
-        <h3>Head of Communications &amp; Social Media</h3>
-        <div class="exp-co">VeChain <span>· Remote</span></div>
-        <p class="exp-desc">Own global comms and social strategy for a Layer-1 blockchain with 2M+ followers, leading end-to-end communications for continuous product launches, developing narrative framing and copy through to multi-channel rollout.</p>
-        <ul class="exp-bullets">
-          <li>Led GTM for the VeBetter ecosystem, scaling to 5M+ users — combining narrative, content, community channels, and partner amplification to sustain momentum before, during, and after launch</li>
-          <li>Ran partner marketing campaigns for UFC, Nitto ATP Finals, Power Slap, and Gresini Racing; contributed to BD by identifying, pitching, and helping close new partnership opportunities</li>
-          <li>Sourced, onboarded, and managed 3–5 agencies across PR, KOL/influencer, and content</li>
-          <li>Shifted social from news-led to community-centric, growing following 30%+ to 2M+</li>
-          <li>Deputise for the CEO as brand spokesperson — 30+ media and event appearances across podcasts, conferences, X Spaces, and livestreams</li>
-        </ul>
-      </div>
+    <div class="mag-cover-right">
+      <div class="mag-portrait"><img src="assets/jake-portrait.png" alt="Jake Campton on stage, speaking"></div>
+      <div class="mag-caption">Spotlight Stage, London Blockchain Conference · 2024.</div>
     </div>
 
-    <div class="exp-item rv">
-      <div class="exp-date"><b>Sep 2021</b><br>— Sep 2024</div>
-      <div class="exp-content">
-        <h3>Communications Lead</h3>
-        <div class="exp-co">CREAM, LLC <span>· Client: VeChain Foundation · Remote</span></div>
-        <p class="exp-desc">Led comms and content strategy for VeChain Foundation — shaping how products, partnerships, and ecosystem updates were positioned and told across every channel.</p>
-        <ul class="exp-bullets">
-          <li>Produced high-volume content across blogs, long-form articles, press materials, social campaigns, and branded assets — often on tight turnarounds</li>
-          <li>Built relationships with media, ecosystem partners, KOLs, and community figures; maintained brand voice consistency across all platforms</li>
-        </ul>
+  </section>
+
+  <!-- Contents -->
+  <section class="mag-contents" data-screen-label="A02 Contents">
+    <h2>Contents</h2>
+    <div class="mag-toc">
+      <a class="row" href="#ch-i"><span class="num">I</span><span class="ttl">The <em>VeBetter</em> story — a 5M-user launch, end-to-end</span><span class="kind">Case study</span><span class="pg">04</span></a>
+      <a class="row" href="#ch-ii"><span class="num">II</span><span class="ttl">The person behind the <em>platform</em></span><span class="kind">Profile</span><span class="pg">12</span></a>
+      <a class="row" href="#ch-iii"><span class="num">III</span><span class="ttl">Where the <em>work</em> happened</span><span class="kind">Career</span><span class="pg">16</span></a>
+      <a class="row" href="#ch-iv"><span class="num">IV</span><span class="ttl">Writing that <em>moves things</em></span><span class="kind">Writing</span><span class="pg">22</span></a>
+      <a class="row" href="#ch-v"><span class="num">V</span><span class="ttl">On screens, <em>at events,</em> in streams</span><span class="kind">Appearances</span><span class="pg">26</span></a>
+      <a class="row" href="#ch-vi"><span class="num">VI</span><span class="ttl">Let's write the <em>next story</em></span><span class="kind">Postscript</span><span class="pg">30</span></a>
+    </div>
+  </section>
+
+  <!-- Chapter I — VeBetter -->
+  <section class="mag-chapter" id="ch-i" data-screen-label="A03 VeBetter">
+    <div class="mag-chapter-head rv">
+      <div class="mag-ch-num">I.</div>
+      <div class="mag-ch-head">
+        <div class="kicker">Case study · 2023 – present</div>
+        <h2 style="font-size:58px">The <em>VeBetter</em> story.<br>A 5M-user launch, end-to-end.</h2>
       </div>
     </div>
+    <div class="mag-cols">
+      <aside class="mag-margin rv" aria-hidden="true"></aside>
 
-    <div class="exp-item rv">
-      <div class="exp-date"><b>Sep 2021</b><br>— Jun 2023</div>
-      <div class="exp-content">
-        <h3>PR &amp; Content Writer</h3>
-        <div class="exp-co">VIMworld <span>· London</span></div>
-        <p class="exp-desc">Produced branded content for social, press, and news outlets. Co-created narrative world-building and lore for a digital collectibles universe.</p>
+      <div class="mag-body rv d1">
+        <p>VeBetter wasn't just a product launch — it was a platform built for an entirely new audience: retail users, not enterprise. It demanded a new brand, a new narrative, and a new proof that blockchain could drive real-world impact at scale. I supported the communications strategy end-to-end, from the first whitepaper outline to five million users onboarded.</p>
+
+        <p>The work began alongside <strong>Boston Consulting Group</strong> — market research, partner interviews, investor meetings, conversations with Web3 builders. Their partnership brought institutional credibility; my job was to make sure that credibility showed up everywhere the audience met us — in the whitepaper, in the CEO's language, in community channels, in the press kit, and in the room at our global launch event, <em>The HiVe</em>.</p>
+
+        <div class="pull-quote">
+          Build the narrative as carefully as the product — then ship them together.
+          <span class="attr">— The story that resonates is the one that is remembered</span>
+        </div>
+
+        <p>Working with BCG and the wider VeChain team, I helped edit and shape the <strong><a href="https://files.vechain.org/vechaincontainer/vechain-whitepaper-3-0.pdf" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:var(--terra);text-underline-offset:3px">VeBetter whitepaper</a></strong> — the canonical artefact for the platform. We wrote it to read like an argument, not a spec sheet: that blockchain was the ideal tool for unlocking meaningful action on sustainability.</p>
+
+        <p>The centrepiece was <em>The HiVe</em>, our global launch event in Las Vegas. Working with agency partners, I drove the comms arc end-to-end — pre-event narrative ramp, on-site executive prep, real-time social, post-event amplification. The venue, the room, the language, and the follow-up press were all wired to the same story.</p>
+
+        <p>The HiVe also became the moment <strong>Sir Konstantin Novoselov</strong> was announced as advisor to VeChain — the Nobel Laureate best known for his pioneering research on graphene, with new research focused on using 2D smart materials for carbon capture on the VeChainThor blockchain — anchoring the platform's scientific credibility from day one.</p>
+
+        <p>Around the launch we built the supporting stack: blog series, announcement copy, community briefings, onboarding flows, spokesperson messaging.</p>
+
+        <div class="mag-figure" style="max-width:none;margin-left:calc(-180px - 2.5rem);width:calc(100% + 360px + 5rem)">
+          <div class="fig-label">◆ Outcomes</div>
+          <div class="fig-row" style="grid-template-columns:repeat(2,1fr);gap:2rem 3rem">
+            <div class="fig-cell"><div class="big">5M+</div><div class="desc">users onboarded to the X-2-Earn ecosystem</div></div>
+            <div class="fig-cell"><div class="big">18k → 224k</div><div class="desc">B3TR token holders at launch → twelve months later</div></div>
+            <div class="fig-cell"><div class="big">3M → 9M</div><div class="desc">total addresses on VeChainThor — tripled in the year after VeBetter launched</div></div>
+            <div class="fig-cell"><div class="big">The HiVe</div><div class="desc">global launch event, Las Vegas — 18 media placements · 168M impressions · Bloomberg syndication</div></div>
+          </div>
+          <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--rule)">
+            <div class="fig-label">◆ In partnership with BCG</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem 2.5rem">
+              <div style="display:flex;align-items:baseline;gap:.7rem">
+                <div style="font-family:var(--display);font-style:italic;font-size:2rem;color:var(--moss);line-height:1;letter-spacing:-.02em;flex-shrink:0">3</div>
+                <div>
+                  <div style="font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:.25rem">Hackathons</div>
+                  <div style="font-size:.78rem;color:var(--ink-2);line-height:1.5">Run with the BCG network in 2024</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:baseline;gap:.7rem">
+                <div style="font-family:var(--display);font-style:italic;font-size:2rem;color:var(--moss);line-height:1;letter-spacing:-.02em;flex-shrink:0">20</div>
+                <div>
+                  <div style="font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:.25rem">App dev engagements</div>
+                  <div style="font-size:.78rem;color:var(--ink-2);line-height:1.5">Builders supported into the ecosystem</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:baseline;gap:.7rem">
+                <div style="font-family:var(--display);font-style:italic;font-size:2rem;color:var(--moss);line-height:1;letter-spacing:-.02em;flex-shrink:0">12</div>
+                <div>
+                  <div style="font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:.25rem">B3TR utility PoCs</div>
+                  <div style="font-size:.78rem;color:var(--ink-2);line-height:1.5">Plus 8 PoC demos delivered</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:baseline;gap:.7rem">
+                <div style="font-family:var(--display);font-style:italic;font-size:2rem;color:var(--moss);line-height:1;letter-spacing:-.02em;flex-shrink:0">15</div>
+                <div>
+                  <div style="font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:.25rem">Enterprise engagements</div>
+                  <div style="font-size:.78rem;color:var(--ink-2);line-height:1.5">Partner activations on B3TR ecosystem</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:baseline;gap:.7rem">
+                <div style="font-family:var(--display);font-style:italic;font-size:2rem;color:var(--moss);line-height:1;letter-spacing:-.02em;flex-shrink:0">10</div>
+                <div>
+                  <div style="font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:.25rem">VC &amp; investor engagements</div>
+                  <div style="font-size:.78rem;color:var(--ink-2);line-height:1.5">Plus 5 Web3 company biz dev intros</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p>After launch, I kept the narrative warm alongside the ecosystem and marketing teams. Partner campaigns with <strong>UFC</strong>. Global activations with builders, businesses, and community members. The <strong>Nitto ATP Finals</strong> — where executives came to explore the technology and public exhibitions brought blockchain to new audiences. Sustained activity across Web3 and traditional media.</p>
+
+        <p>Token-holder counts quadrupled within six months and grew more than 10× at one year. Over five million accounts have been created since launch — from 18,000 on day one. Today, the platform sits at over 50 apps, with 52 million 'sustainability proofs' hashed on-chain, resulting in millions of dollars paid to people for making the world better.</p>
+      </div>
+
+      <aside class="mag-margin rv d2" aria-hidden="true"></aside>
+    </div>
+  </section>
+
+
+
+  <!-- Chapter II — Profile -->
+  <section class="mag-chapter" id="ch-ii" data-screen-label="A05 Profile">
+    <div class="mag-chapter-head rv">
+      <div class="mag-ch-num">II.</div>
+      <div class="mag-ch-head">
+        <div class="kicker">Profile</div>
+        <h2>The person behind the <em>platform.</em></h2>
       </div>
     </div>
+    <div class="mag-cols">
+      <aside class="mag-margin rv">
+        <b>Stakeholder range</b>
+        <div class="item"><span style="display:block;font-family:var(--display);font-style:italic;font-size:.9rem;color:var(--ink);margin-bottom:.25rem;letter-spacing:0;text-transform:none;">Science &amp; research</span>Sir Konstantin Novoselov (announced as VeChain advisor at The HiVe, 2023) · Sir Andre Geim · Prof. Qi Ge</div>
+        <div class="item"><span style="display:block;font-family:var(--display);font-style:italic;font-size:.9rem;color:var(--ink);margin-bottom:.25rem;letter-spacing:0;text-transform:none;">Enterprise &amp; advisory</span>Boston Consulting Group · PwC · DNV</div>
+        <div class="item"><span style="display:block;font-family:var(--display);font-style:italic;font-size:.9rem;color:var(--ink);margin-bottom:.25rem;letter-spacing:0;text-transform:none;">Press &amp; creators</span>Rachel Wolfson, Cointelegraph · Scott Melker · CoinDesk</div>
+        <div class="item"><span style="display:block;font-family:var(--display);font-style:italic;font-size:.9rem;color:var(--ink);margin-bottom:.25rem;letter-spacing:0;text-transform:none;">Brand activation partners</span>UFC · Nitto ATP Finals</div>
+        <div class="item" style="font-family:var(--display);font-style:italic;font-size:.92rem;color:var(--ink);letter-spacing:0;text-transform:none;line-height:1.45;border-bottom:0;padding-top:1rem">The discipline is adapting register without losing voice.</div>
+      </aside>
+      <div class="mag-body rv d1">
+        <div style="margin-bottom:2rem;">
+          <div style="border-radius:4px;overflow:hidden;border:1px solid var(--rule);">
+            <img src="assets/jake-lbc.png" alt="Jake Campton speaking on the London Blockchain Conference Spotlight Stage in 2024, with Bernhard Kronfellner (Partner, Boston Consulting Group) listening. The VeChain pitch deck visible on screen behind them." style="width:100%;display:block;filter:saturate(.82) contrast(1.04);">
+          </div>
+          <div class="mag-caption">Spotlight Stage, London Blockchain Conference · 2024. Speaking with Bernhard Kronfellner, Partner at Boston Consulting Group.</div>
+        </div>
+        <p>Two product launches I've supported at VeChain ended up with more than five million users each. The <strong>VeWorld wallet</strong> — 5.5M+ downloads, the new front door to the entire VeChain ecosystem, with a built-in dApp platform and the full feature set of an advanced wallet. And <strong>VeBetter</strong> — 5M+ onboarded, the platform that turned blockchain into something people can use to build a better world.</p>
 
-    <div class="exp-item rv">
-      <div class="exp-date"><b>Mar 2020</b><br>— Sep 2021</div>
-      <div class="exp-content">
-        <h3>Associate / Account Executive</h3>
-        <div class="exp-co">DNA Communications &amp; OPEN Health <span>· London</span></div>
-        <p class="exp-desc">Early-career foundation in regulated communications — supporting the development of campaigns for pharmaceutical and healthcare clients, producing publications and educational content, and managing delivery across multiple concurrent projects.</p>
+        <p>The work spans narrative strategy, partner and product marketing, KOL management, community engagement, executive communications, and agency coordination — but the version of the role that matters happens upstream of any of those. The discipline is shaping what gets said, by whom, and why, before the press release exists. Most days that means working closer to product and partnerships than to publishing.</p>
+
+        <p>Day to day, my role is varied — from content and copy to agency partners on PR, social, and KOL strategy. I support a global community team that gives the brand 24/7 coverage, and adhere to editorial standards everything ships against. The senior version of comms is about knowing what good looks like and holding the room to it.</p>
+
+        <p>As brand spokesperson I've made 30+ appearances for VeChain — from the Innovation Stage at the London Blockchain Conference alongside <strong>Boston Consulting Group</strong>, to <em>Cointelegraph's Hashing It Out</em>, a 178K-view livestream with the CEO for a major protocol upgrade, as well as X Spaces, AMAs, livestreams and more.</p>
+
+        <p>My Master's in Science Communication is the foundation. Clarity, precision, empathy for the audience — these are not optional in a field built on trust. They show up in everything from a 30-second elevator pitch to a long-form strategy deck.</p>
+      </div>
+      <aside class="mag-margin rv d2" aria-hidden="true"></aside>
+    </div>
+  </section>
+
+  <!-- Chapter III — Career -->
+  <section class="mag-chapter" id="ch-iii" data-screen-label="A06 Career">
+    <div class="mag-chapter-head rv">
+      <div class="mag-ch-num">III.</div>
+      <div class="mag-ch-head">
+        <div class="kicker">Career</div>
+        <h2>Where the <em>work</em> happened.</h2>
       </div>
     </div>
-
-    <div class="exp-item rv">
-      <div class="exp-date"><b>Feb 2018</b><br>— Sep 2021</div>
-      <div class="exp-content">
-        <h3>Content Producer &amp; Community Manager</h3>
-        <div class="exp-co">VeChain Foundation <span>· via CREAM LLC · Remote</span></div>
-        <p class="exp-desc">Joined VeChain early, producing content for a global audience and growing communities on Telegram, Discord, Reddit, and Twitter/X as the ecosystem took shape.</p>
+    <div class="mag-list">
+      <div class="mag-list-item rv">
+        <div class="when"><b>Sep 2024</b>— Present</div>
+        <div><h4>Head of Communications &amp; Social Media</h4><div class="co">VeChain <span>· Remote</span></div>
+          <p>Own global social and editorial strategy across the VeChain product suite — the L1 protocol, a Web3 app ecosystem with 5M+ users, a consumer wallet with 5.5M+ downloads, and a staking product. Scaled combined social audiences to 2M+ followers across X, LinkedIn, and YouTube. Lead agency partners on PR, social, and KOL strategy. Building AI tools and automations that help the team scale without losing voice. Lead and mentor a global community management team that gives the brand 24/7 coverage. Brand spokesperson — 30+ appearances since 2023.</p></div>
+      </div>
+      <div class="mag-list-item rv">
+        <div class="when"><b>Sep 2021</b>— Sep 2024</div>
+        <div><h4>Communications Lead</h4><div class="co">VeChain</div>
+          <p>Supported the evolution of VeChain's brand positioning, from supply chain-focused toward sustainability through the VeBetter ecosystem. Worked with Boston Consulting Group to deliver a new whitepaper, product direction, market research, and differentiation strategy. Owned multi-channel content operations end-to-end. Authored long-form features, technical explainers, video scripts, campaign copy, and exec-fronted content; maintained a consistent voice across hundreds of pieces over three years.</p></div>
+      </div>
+      <div class="mag-list-item rv">
+        <div class="when"><b>Sep 2021</b>— Jun 2023</div>
+        <div><h4>PR &amp; Content Writer (Contract)</h4><div class="co">VIMworld <span>· London</span></div>
+          <p>Built the voice of an early-Web3 NFT project from the ground up — press releases, branded copy, lore-building for the VIMworld universe — during one of the most chaotic and creative periods in Web3.</p></div>
+      </div>
+      <div class="mag-list-item rv">
+        <div class="when"><b>Mar 2020</b>— Sep 2021</div>
+        <div><h4>Associate / Account Executive</h4><div class="co">DNA Communications &amp; OPEN Health <span>· London</span></div>
+          <p>Early-career foundation in regulated communications — pharmaceutical and healthcare campaigns, publications, educational content. Every claim fact-checked, source-referenced, and signed off, in an industry where careless comms causes real harm. Taught me tight time and project management.</p></div>
+      </div>
+      <div class="mag-list-item rv">
+        <div class="when"><b>Feb 2018</b>— Sep 2021</div>
+        <div><h4>Content Producer &amp; Community Manager</h4><div class="co">VeChain <span>· Global / Remote</span></div>
+          <p>First paid roles in Web3, in 2018. Started in community admin, eventually moving to review and edit copy and content for global blockchain audiences while moderating community across Telegram, Discord, and Reddit. First full crypto market cycle: from bear to bull. Learned how to manage the volatility of markets and human emotion with a disciplined tone, keeping the community engaged when price isn't doing the talking.</p></div>
+      </div>
+      <div class="mag-list-item rv">
+        <div class="when"><b>Jun 2019</b>— Dec 2019</div>
+        <div><h4>Conference Producer</h4><div class="co">Smart Grid Forums <span>· UK</span></div>
+          <p>Worked at the intersection of legacy energy infrastructure and emerging tech, owning end-to-end programme development for technical conferences. Drew stories out of engineers, regulators, and industry veterans who often didn't want a microphone and had to be coaxed to deliver. Two events generating tens of thousands in revenue, focused on AI / ML and the future of smart grids.</p></div>
       </div>
     </div>
+  </section>
 
-    <div class="exp-item rv">
-      <div class="exp-date"><b>Jun 2019</b><br>— Dec 2019</div>
-      <div class="exp-content">
-        <h3>Conference Producer</h3>
-        <div class="exp-co">Smart Grid Forums <span>· United Kingdom</span></div>
-        <p class="exp-desc">Produced technical conferences for the energy sector, managing programme development alongside engineering and enterprise stakeholders.</p>
+  <!-- Chapter IV — Writing & Appearances -->
+  <section class="mag-chapter" id="ch-iv" data-screen-label="A07 Writing (Print)">
+    <div class="mag-chapter-head rv">
+      <div class="mag-ch-num">IV.</div>
+      <div class="mag-ch-head">
+        <div class="kicker">Part A · In print · Writing</div>
+        <h2>Writing that <em>moves things.</em></h2>
       </div>
     </div>
-  </div>
-
-  <div class="marquee-wrap">
-    <div class="marquee">
-      <span>narrative strategy</span><span>product launches</span><span><em>executive comms</em></span><span>brand spokesperson</span><span>partner campaigns</span><span>community</span><span><em>story</em></span><span>GTM</span><span>editorial</span><span>copywriting</span>
-      <span>narrative strategy</span><span>product launches</span><span><em>executive comms</em></span><span>brand spokesperson</span><span>partner campaigns</span><span>community</span><span><em>story</em></span><span>GTM</span><span>editorial</span><span>copywriting</span>
-    </div>
-  </div>
-</section>
-
-<div class="dv"></div>
-
-<!-- ─── Writing ─── -->
-<section id="writing">
-  <span class="s-num">03</span>
-  <div class="rv"><div class="lb">03 — Writing</div><div class="st2">Work that <em>moves</em> things</div></div>
-  <div class="filter-row rv" id="wFilters">
-    <button class="on" data-wf="all">All</button>
-    <button data-wf="longform">Long-form</button>
-    <button data-wf="announcement">Announcements</button>
-    <button data-wf="campaign">Campaign</button>
-    <button data-wf="social">Social</button>
-  </div>
-  <div class="grid" id="writingGrid">
-
-    <div class="card rv" data-c="longform">
-      <div class="c-thumb" data-outlet="article">
-        <span class="c-thumb-icon">✦</span>
-        <span class="c-thumb-type">Long-form</span>
-        <span class="c-thumb-outlet">VeChain Medium</span>
+    <div class="mag-cols">
+      <aside class="mag-margin rv" aria-hidden="true"></aside>
+      <div class="mag-body rv d1">
+        <p>Selected writing from product launches, partnerships, and platform-defining moments at VeChain.</p>
       </div>
-      <div class="c-body">
-        <div class="c-cat">Long-form · Explainer</div>
-        <h4>VeChain No-Code Asset Tokenisation Platform — Gresini Racing Launch</h4>
-        <div class="c-source"><strong>VeChain Foundation Medium</strong> · Mar 2024</div>
-        <div class="c-excerpt">"VeChain's MaaS platform removes the technical barriers that have historically kept enterprises from exploring tokenisation — making blockchain adoption as simple as managing a spreadsheet..."</div>
-        <a class="c-link" href="https://medium.com/vechain-foundation/vechain-announces-launch-of-no-code-asset-tokenization-platform-welcomes-first-enterprise-user-8f43f7b5aadd" target="_blank">Read full piece →</a>
-      </div>
+      <aside class="mag-margin rv d2" aria-hidden="true"></aside>
     </div>
 
-    <div class="card rv d1" data-c="announcement">
-      <div class="c-thumb" data-outlet="announce">
-        <span class="c-thumb-icon">◈</span>
-        <span class="c-thumb-type">Announcement</span>
-        <span class="c-thumb-outlet">Executive Comms</span>
-      </div>
-      <div class="c-body">
-        <div class="c-cat">Announcement · Executive Comms</div>
-        <h4>Hayabusa Upgrade — Full Comms Package</h4>
-        <div class="c-source"><strong>VeChain</strong> · Dec 2025</div>
-        <div class="c-excerpt">End-to-end comms strategy and copy for VeChain's largest-ever mainnet upgrade — covering the dPoS transition, StarGate staking launch, and tokenomics changes. Included blog post, social campaign, FAQ, and spokesperson messaging framework.</div>
-        <a class="c-link" href="#" target="_blank">Sample on request →</a>
+    <div class="mag-cards rv">
+      <article class="mag-card" data-hover>
+        <div class="mc-thumb"><svg viewBox="0 0 560 316" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%"><rect width="560" height="316" fill="#1d1f1a"/><line x1="40" y1="60" x2="520" y2="60" stroke="#b5633a" stroke-width="1" opacity=".5"/><line x1="40" y1="256" x2="520" y2="256" stroke="#b5633a" stroke-width="1" opacity=".5"/><text x="280" y="168" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="34" fill="#efe9dd" opacity=".92">Whitepaper 3.0</text><text x="280" y="42" text-anchor="middle" font-family="monospace" font-size="9" fill="#4e7a3f" letter-spacing="4" opacity=".75">CANONICAL ARTEFACT</text><text x="280" y="284" text-anchor="middle" font-family="monospace" font-size="9" fill="#4e7a3f" letter-spacing="3" opacity=".55">VECHAIN FOUNDATION · 2024</text></svg><span class="type">Whitepaper</span><span class="outlet">VeChain Foundation</span></div>
+        <div class="mc-body">
+          <div class="mc-cat">Whitepaper · Strategic</div>
+          <h4>VeChain <em>Whitepaper 3.0</em> — Web3 for Better World</h4>
+          <div class="mc-src"><b>VeChain Foundation</b> · 2024</div>
+          <p class="mc-ex">The canonical strategic document for VeChain's next chapter — blockchain as the backbone for real-world sustainability at scale. Shaped, edited and delivered end-to-end.</p>
+          <a class="mc-link" href="https://files.vechain.org/vechaincontainer/vechain-whitepaper-3-0.pdf" target="_blank" rel="noopener">Read whitepaper →</a>
+        </div>
+      </article>
+
+      <article class="mag-card" data-hover>
+        <div class="mc-thumb"><svg viewBox="0 0 560 316" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%"><rect width="560" height="316" fill="#1d1f1a"/><line x1="40" y1="60" x2="520" y2="60" stroke="#b5633a" stroke-width="1" opacity=".5"/><line x1="40" y1="256" x2="520" y2="256" stroke="#b5633a" stroke-width="1" opacity=".5"/><text x="280" y="168" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="34" fill="#efe9dd" opacity=".92">Renaissance Upgrades</text><text x="280" y="42" text-anchor="middle" font-family="monospace" font-size="9" fill="#4e7a3f" letter-spacing="4" opacity=".75">LONG-FORM CAMPAIGN</text><text x="280" y="284" text-anchor="middle" font-family="monospace" font-size="9" fill="#4e7a3f" letter-spacing="3" opacity=".55">VECHAIN · 2024–PRESENT</text></svg><span class="type">Campaign</span><span class="outlet">Long-form · Social · KOL</span></div>
+        <div class="mc-body">
+          <div class="mc-cat">Long-form campaign · Protocol education</div>
+          <h4>VeChain Renaissance Upgrades — <em>full comms package</em></h4>
+          <div class="mc-src"><b>VeChain</b> · 2024 – present</div>
+          <p class="mc-ex">A year-long comms campaign covering VeChain's most significant protocol evolution to date — articles, social content, KOL activations, and livestreams, built to educate a broad audience on the substance and importance of each upgrade as it landed.</p>
+          <a class="mc-link" href="#">Sample on request →</a>
+        </div>
+      </article>
+
+      
+      <article class="mag-card" data-hover>
+        <div class="mc-thumb"><svg viewBox="0 0 560 316" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%"><rect width="560" height="316" fill="#1d1f1a"/><line x1="40" y1="60" x2="520" y2="60" stroke="#b5633a" stroke-width="1" opacity=".5"/><line x1="40" y1="256" x2="520" y2="256" stroke="#b5633a" stroke-width="1" opacity=".5"/><text x="280" y="168" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="34" fill="#efe9dd" opacity=".92">Utility vs Casino</text><text x="280" y="42" text-anchor="middle" font-family="monospace" font-size="9" fill="#4e7a3f" letter-spacing="4" opacity=".75">2026 MANIFESTO</text><text x="280" y="284" text-anchor="middle" font-family="monospace" font-size="9" fill="#4e7a3f" letter-spacing="3" opacity=".55">THE CAPITAL · MEDIUM</text></svg><span class="type">Brand positioning</span><span class="outlet">The Capital · Medium</span></div>
+        <div class="mc-body">
+          <div class="mc-cat">Executive · Brand positioning</div>
+          <h4>VeChain’s <em>2026 Manifesto</em> — The Fight for Utility in a “Casino Market”</h4>
+          <div class="mc-src"><b>The Capital · Medium</b> · 2026</div>
+          <p class="mc-ex">A bold executive positioning piece making the case for utility-first blockchain in a speculative market — narrative strategy at its most direct.</p>
+          <a class="mc-link" href="https://medium.com/thecapital/vechains-2026-manifesto-the-fight-for-utility-in-a-casino-market-2d97318790fd" target="_blank" rel="noopener">Read piece →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Chapter V — Appearances -->
+  <section class="mag-chapter" id="ch-v" data-screen-label="A08 Media (On screens)">
+    <div class="mag-chapter-head rv">
+      <div class="mag-ch-num">V.</div>
+      <div class="mag-ch-head">
+        <div class="kicker">Part B · On screens · Media &amp; appearances</div>
+        <h2>On screens, <em>at events,</em> in streams.</h2>
       </div>
     </div>
-
-    <div class="card rv d2" data-c="campaign">
-      <div class="c-thumb" data-outlet="campaign">
-        <span class="c-thumb-icon">◉</span>
-        <span class="c-thumb-type">Campaign</span>
-        <span class="c-thumb-outlet">Brand Copy</span>
+    <div class="mag-cols">
+      <aside class="mag-margin rv" aria-hidden="true"></aside>
+      <div class="mag-body rv d1">
+        <p>As brand spokesperson I’ve made 30+ appearances for VeChain — from the Innovation Stage at the London Blockchain Conference alongside <strong>Boston Consulting Group</strong>, to <em>Cointelegraph’s Hashing It Out</em>, a 178K-view livestream with the CEO for a major protocol upgrade, as well as X Spaces, AMAs, livestreams and more.</p>
       </div>
-      <div class="c-body">
-        <div class="c-cat">Campaign · Brand Copy</div>
-        <h4>VeBetter — "Earn While You Act" Campaign Copy</h4>
-        <div class="c-source"><strong>VeChain / VeBetterDAO</strong> · 2024</div>
-        <div class="c-excerpt">Full campaign copywriting suite for the VeBetter ecosystem launch: hero messaging, ad copy variants, community onboarding messaging, and partner co-marketing templates.</div>
-        <a class="c-link" href="#" target="_blank">Sample on request →</a>
-      </div>
+      <aside class="mag-margin rv d2" aria-hidden="true"></aside>
     </div>
 
-    <div class="card rv d3" data-c="social">
-      <div class="c-thumb" data-outlet="thread">
-        <span class="c-thumb-icon">𝕏</span>
-        <span class="c-thumb-type">Social Thread</span>
-        <span class="c-thumb-outlet">X / Twitter</span>
-      </div>
-      <div class="c-body">
-        <div class="c-cat">Social · Thread</div>
-        <h4>[Add your best-performing thread or social content here]</h4>
-        <div class="c-source"><strong>X / @VeChainOfficial</strong> · 2025</div>
-        <div class="c-excerpt">Placeholder — add a standout thread, X post, or social campaign here with engagement metrics.</div>
-        <a class="c-link" href="#" target="_blank">View on X →</a>
-      </div>
+    <div class="mag-cards has-feat rv">
+
+      <!-- Featured: LBC on stage -->
+      <article class="mag-card feat" data-hover>
+        <div class="mc-thumb"><svg viewBox="0 0 560 316" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%"><rect width="560" height="316" fill="#1d1f1a"/><line x1="40" y1="60" x2="520" y2="60" stroke="#b5633a" stroke-width="1" opacity=".5"/><line x1="40" y1="256" x2="520" y2="256" stroke="#b5633a" stroke-width="1" opacity=".5"/><text x="280" y="168" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="34" fill="#efe9dd" opacity=".92">Web3 for a Better World</text><text x="280" y="42" text-anchor="middle" font-family="monospace" font-size="9" fill="#4e7a3f" letter-spacing="4" opacity=".75">INNOVATION STAGE · ON CAMERA</text><text x="280" y="284" text-anchor="middle" font-family="monospace" font-size="9" fill="#4e7a3f" letter-spacing="3" opacity=".55">LONDON BLOCKCHAIN CONFERENCE · 2024</text></svg><span class="type">▶ Conference</span><span class="outlet">London Blockchain Conf.</span></div>
+        <div class="mc-body">
+          <div class="mc-cat">Video · Conference · Innovation Stage</div>
+          <h4>Web3 for a <em>Better World</em> — VeChain &amp; BCG on sustainability</h4>
+          <div class="mc-src"><b>London Blockchain Conference</b> · 2024 · with Bernhard Kronfellner, Partner at Boston Consulting Group</div>
+          <p class="mc-ex">Joint Innovation Stage session with Bernhard Kronfellner (Partner, Boston Consulting Group) on blockchain-driven transparency and environmental responsibility.</p>
+          <a class="mc-link" href="https://www.youtube.com/watch?v=RMjN5CXnxZY" target="_blank" rel="noopener">Watch →</a>
+        </div>
+      </article>
+      <!-- Hayabusa 178K livestream -->
+      <article class="mag-card" data-hover>
+        <div class="mc-thumb"><svg viewBox="0 0 560 316" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%"><rect width="560" height="316" fill="#1d1f1a"/><line x1="40" y1="60" x2="520" y2="60" stroke="#b5633a" stroke-width="1" opacity=".5"/><line x1="40" y1="256" x2="520" y2="256" stroke="#b5633a" stroke-width="1" opacity=".5"/><text x="280" y="168" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="34" fill="#efe9dd" opacity=".92">Hayabusa Livestream</text><text x="280" y="42" text-anchor="middle" font-family="monospace" font-size="9" fill="#4e7a3f" letter-spacing="4" opacity=".75">178K VIEWS · DEC 2025</text><text x="280" y="284" text-anchor="middle" font-family="monospace" font-size="9" fill="#4e7a3f" letter-spacing="3" opacity=".55">VECHAIN OFFICIAL · YOUTUBE</text></svg><span class="type">▶ Livestream</span><span class="views">178K views</span></div>
+        <div class="mc-body">
+          <div class="mc-cat">Livestream · YouTube</div>
+          <h4><em>Hayabusa</em> mainnet upgrade — live with the CEO</h4>
+          <div class="mc-src"><b>VeChain Official · YouTube</b> · Dec 2025</div>
+          <p class="mc-ex">VeChain's biggest-ever video — 178K views. Joint livestream with the CEO covering the Hayabusa upgrade, new staking architecture, and the road ahead. Jake co-hosted and led the comms build-up.</p>
+          <a class="mc-link" href="https://www.youtube.com/watch?v=6NBehD87P5I&amp;" target="_blank" rel="noopener">Watch →</a>
+        </div>
+      </article>
+
+      <!-- Crypto Coin Show -->
+      <article class="mag-card" data-hover>
+        <div class="mc-thumb"><svg viewBox="0 0 560 316" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%"><rect width="560" height="316" fill="#1d1f1a"/><line x1="40" y1="60" x2="520" y2="60" stroke="#b5633a" stroke-width="1" opacity=".5"/><line x1="40" y1="256" x2="520" y2="256" stroke="#b5633a" stroke-width="1" opacity=".5"/><text x="280" y="168" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="34" fill="#efe9dd" opacity=".92">Crypto Coin Show</text><text x="280" y="42" text-anchor="middle" font-family="monospace" font-size="9" fill="#4e7a3f" letter-spacing="4" opacity=".75">INTERVIEW · ON CAMERA</text><text x="280" y="284" text-anchor="middle" font-family="monospace" font-size="9" fill="#4e7a3f" letter-spacing="3" opacity=".55">CRYPTO COIN SHOW</text></svg><span class="type">▶ Interview</span><span class="outlet">Crypto Coin Show</span></div>
+        <div class="mc-body">
+          <div class="mc-cat">Video · Interview</div>
+          <h4><em>Crypto Coin Show</em> — VeChain interview</h4>
+          <div class="mc-src"><b>Crypto Coin Show</b></div>
+          <p class="mc-ex">On-camera interview covering VeChain's ecosystem, strategy, and the wider sustainability narrative — reaching an engaged crypto audience.</p>
+          <a class="mc-link" href="https://www.youtube.com/watch?v=vS9Jsa-M5Mw" target="_blank" rel="noopener">Watch →</a>
+        </div>
+      </article>
+
     </div>
+  </section>
 
-  </div>
-</section>
+  <!-- Chapter V — Appearances -->
+  
 
-<div class="dv"></div>
-
-<!-- ─── Media ─── -->
-<section id="media">
-  <span class="s-num">04</span>
-  <div class="rv"><div class="lb">04 — Media &amp; Appearances</div><div class="st2">On screens, <em>in print</em></div></div>
-
-  <div class="g-outlets rv">
-    <span>Cointelegraph</span><span>BeInCrypto</span><span>CoinGeek</span><span>Crypto News Flash</span><span>CoinSpeaker</span><span>Blockonomi</span><span>Crypto Coin Show</span><span>London Blockchain Conference</span>
-  </div>
-
-  <div class="filter-row rv" id="mFilters">
-    <button class="on" data-mf="all">All</button>
-    <button data-mf="video">Video</button>
-    <button data-mf="podcast">Podcast</button>
-    <button data-mf="press">Press</button>
-    <button data-mf="vechain">VeChain</button>
-  </div>
-
-  <div class="grid" id="mediaGrid">
-    <div class="card rv" data-c="vechain">
-      <div class="c-thumb" data-outlet="vechain"><img src="https://img.youtube.com/vi/6NBehD87P5I/maxresdefault.jpg" alt=""><span class="c-thumb-type">▶ Livestream</span><span class="c-thumb-views">178K views</span><span class="c-thumb-outlet">VeChain YouTube</span></div>
-      <div class="c-body">
-        <div class="c-cat">VeChain · Long-form</div>
-        <h4>VeChain Hayabusa Deep Dive: Tokenomics, StarGate Staking &amp; DPoS</h4>
-        <div class="c-source"><strong>VeChain YouTube</strong> · Dec 2025</div>
-        <p class="c-desc">With CEO Sunny Lu &amp; Rosa Simeoli. Full mainnet upgrade walkthrough — the biggest single-video reach in VeChain's social history.</p>
-        <a class="c-link" href="#" target="_blank">Watch →</a>
-      </div>
-    </div>
-
-    <div class="card rv d1" data-c="video">
-      <div class="c-thumb" data-outlet="lbc"><img src="https://img.youtube.com/vi/RMjN5CXnxZY/maxresdefault.jpg" alt=""><span class="c-thumb-type">▶ Conference</span><span class="c-thumb-outlet">London Blockchain Conf.</span></div>
-      <div class="c-body">
-        <div class="c-cat">Video · Conference</div>
-        <h4>Web3 for a Better World: VeChain &amp; BCG on Blockchain Sustainability</h4>
-        <div class="c-source"><strong>London Blockchain Conference</strong> · Aug 2024</div>
-        <p class="c-desc">Joint Innovation Stage session with Bernhard Kronfellner (Partner, Boston Consulting Group) on blockchain-driven transparency and environmental responsibility.</p>
-        <a class="c-link" href="https://www.youtube.com/watch?v=RMjN5CXnxZY" target="_blank">Watch →</a>
+  <!-- Colophon -->
+  <section class="mag-chapter" id="ch-vi" data-screen-label="A09 Colophon">
+    <div class="mag-chapter-head rv">
+      <div class="mag-ch-num">VI.</div>
+      <div class="mag-ch-head">
+        <div class="kicker">Postscript</div>
+        <h2>Let's write the <em>next story.</em></h2>
       </div>
     </div>
-
-    <div class="card rv d2" data-c="podcast">
-      <div class="c-thumb" data-outlet="cointelegraph"><span class="c-thumb-icon">🎙</span><span class="c-thumb-type">🎙 Solo</span><span class="c-thumb-outlet">Cointelegraph</span></div>
-      <div class="c-body">
-        <div class="c-cat">Podcast · Solo Feature</div>
-        <h4>Cointelegraph Hashing It Out — Ep. 51</h4>
-        <div class="c-source"><strong>Cointelegraph</strong> · Mar 2024</div>
-        <p class="c-desc">Solo episode. Web3 &amp; sustainability, VeBetterDAO explained for a mainstream crypto audience on one of the industry's top podcast platforms.</p>
-        <a class="c-link" href="#" target="_blank">Listen →</a>
+    <div class="mag-postscript rv d1">
+      <div style="display:grid;grid-template-columns:180px 1fr 180px;gap:2.5rem;align-items:start">
+      <aside class="mag-margin rv">
+        <b>About me</b>
+        <div class="item">Embodying decentralisation aboard a bespoke widebeam boat</div>
+        <div class="item">Father to a 1-year-old</div>
+        <div class="item">Long runs, slow food, time on the water</div>
+      </aside>
+      <div class="mag-postscript rv d1">
+        <div style="display:flex;gap:3rem;align-items:flex-start;margin-bottom:2.5rem;flex-wrap:wrap;">
+          <div style="width:220px;flex-shrink:0;">
+            <div class="mag-portrait">
+              <img src="assets/jake.png" alt="Jake Campton in Turin, Italy, on assignment for the Nitto ATP Finals · 2024.">
+            </div>
+            <div class="mag-caption">Turin · Nitto ATP Finals · November 2024.</div>
+          </div>
+          <div style="text-align:left;max-width:38ch;padding-top:.5rem;">
+            <p>Open to <strong>Head of Communications</strong>, <strong>Head of Marketing</strong>, and <strong>Head of Social</strong> roles. Based in London; remote-friendly; open to travel.</p>
+            <div class="mag-postscript-cta" style="justify-content:flex-start;">
+              <a class="cb p" href="https://www.linkedin.com/in/jakecampton" target="_blank" rel="noopener">Reach out on LinkedIn →</a>
+            </div>
+          </div>
+        </div>
       </div>
+      <aside class="mag-margin rv d2" aria-hidden="true"></aside>
     </div>
+  </section>
 
-    <div class="card rv" data-c="video">
-      <div class="c-thumb" data-outlet="ccs"><img src="https://img.youtube.com/vi/vS9Jsa-M5Mw/maxresdefault.jpg" alt=""><span class="c-thumb-type">▶ Interview</span><span class="c-thumb-views">4K+ views</span><span class="c-thumb-outlet">Crypto Coin Show</span></div>
-      <div class="c-body">
-        <div class="c-cat">Video · Interview</div>
-        <h4>VeChain's Biggest Upgrade Ever: Mainnet, VeBetter and Real-World Adoption</h4>
-        <div class="c-source"><strong>Crypto Coin Show</strong> · Dec 2025</div>
-        <p class="c-desc">In-depth interview covering the Hayabusa mainnet launch, dPoS transition, tokenomics changes, VeBetter apps, and the 2026 roadmap.</p>
-        <a class="c-link" href="https://www.youtube.com/watch?v=vS9Jsa-M5Mw" target="_blank">Watch →</a>
-      </div>
-    </div>
+</div>
 
-    <div class="card rv d1" data-c="video">
-      <div class="c-thumb" data-outlet="xspaces"><span class="c-thumb-icon">𝕏</span><span class="c-thumb-type">𝕏 Spaces</span><span class="c-thumb-views">4.8K listens</span><span class="c-thumb-outlet">Chill Pill</span></div>
-      <div class="c-body">
-        <div class="c-cat">Video · X Spaces</div>
-        <h4>VeChain Deep Dive with Chill Pill</h4>
-        <div class="c-source"><strong>Chill Pill X Spaces</strong> · 2025</div>
-        <p class="c-desc">Extended conversation on VeChain strategy and ecosystem direction — reached 4.8K listeners.</p>
-        <a class="c-link" href="#" target="_blank">Listen →</a>
-      </div>
-    </div>
-
-    <div class="card rv d2" data-c="press">
-      <div class="c-thumb" data-outlet="beincrypto"><span class="c-thumb-icon">✦</span><span class="c-thumb-type">📰 Long-form</span><span class="c-thumb-outlet">BeInCrypto</span></div>
-      <div class="c-body">
-        <div class="c-cat">Press · Long-form</div>
-        <h4>Hayabusa Upgrade: What VET Holders Need to Know</h4>
-        <div class="c-source"><strong>BeInCrypto</strong> · Dec 2025</div>
-        <p class="c-desc">Contributed long-form piece dissecting the DPoS transition and StarGate staking mechanics for retail investors.</p>
-        <a class="c-link" href="#" target="_blank">Read →</a>
-      </div>
-    </div>
-
-    <div class="card rv extra" data-c="video">
-      <div class="c-thumb" data-outlet="lbc"><span class="c-thumb-icon">▶</span><span class="c-thumb-type">▶ Conference</span><span class="c-thumb-outlet">LBC / VeChain</span></div>
-      <div class="c-body">
-        <div class="c-cat">Video · Conference</div>
-        <h4>London Blockchain Conference 2025 — Innovation Stage: VeBetterDAO</h4>
-        <div class="c-source"><strong>LBC / VeChain</strong> · Oct 2025</div>
-        <p class="c-desc">VeBetterDAO &amp; X-2-Earn model. Co-presented with Dr. Alec Burns (VeChain R&amp;D).</p>
-        <a class="c-link" href="#" target="_blank">View →</a>
-      </div>
-    </div>
-
-    <div class="card rv extra" data-c="video">
-      <div class="c-thumb" data-outlet="mycrypto"><img src="https://img.youtube.com/vi/Qx2Py21aZzU/maxresdefault.jpg" alt=""><span class="c-thumb-type">▶ AMA</span><span class="c-thumb-outlet">My Crypto Journey</span></div>
-      <div class="c-body">
-        <div class="c-cat">Video · Livestream AMA</div>
-        <h4>VeChain AMA — Stargate, VeBetter, and More</h4>
-        <div class="c-source"><strong>My Crypto Journey</strong> · Dec 2025</div>
-        <p class="c-desc">Live AMA covering StarGate staking, VeBetter ecosystem, and community Q&amp;A.</p>
-        <a class="c-link" href="https://www.youtube.com/watch?v=Qx2Py21aZzU" target="_blank">Watch →</a>
-      </div>
-    </div>
-
-    <div class="card rv extra" data-c="podcast">
-      <div class="c-thumb" data-outlet="cointelegraph"><span class="c-thumb-icon">🎙</span><span class="c-thumb-type">🎙 Roundtable</span><span class="c-thumb-outlet">Cointelegraph</span></div>
-      <div class="c-body">
-        <div class="c-cat">Podcast · Roundtable</div>
-        <h4>Cointelegraph Hashing It Out — Roundtable</h4>
-        <div class="c-source"><strong>Cointelegraph</strong> · Oct 2024</div>
-        <p class="c-desc">With Puffpaw CEO Reffo Tse. VeBetter platform, tokenising sustainable actions, dApp ecosystem growth.</p>
-        <a class="c-link" href="#" target="_blank">Listen →</a>
-      </div>
-    </div>
-
-    <div class="card rv extra" data-c="podcast">
-      <div class="c-thumb" data-outlet="beincrypto"><span class="c-thumb-icon">🎙</span><span class="c-thumb-type">🎙 Podcast</span><span class="c-thumb-outlet">BeInCrypto</span></div>
-      <div class="c-body">
-        <div class="c-cat">Podcast</div>
-        <h4>BeInCrypto Podcast — Hayabusa Upgrade Deep Dive</h4>
-        <div class="c-source"><strong>BeInCrypto</strong> · Dec 2025</div>
-        <p class="c-desc">DPoS transition, StarGate staking, new tokenomics for VET holders.</p>
-        <a class="c-link" href="#" target="_blank">Listen →</a>
-      </div>
-    </div>
-
-    <div class="card rv extra" data-c="press">
-      <div class="c-thumb" data-outlet="coingeek"><span class="c-thumb-icon">✦</span><span class="c-thumb-type">📰 Conference</span><span class="c-thumb-outlet">CoinGeek</span></div>
-      <div class="c-body">
-        <div class="c-cat">Press · Conference</div>
-        <h4>LBC 2025 Day 1 — VeBetterDAO Innovation Stage Coverage</h4>
-        <div class="c-source"><strong>CoinGeek</strong> · Oct 2025</div>
-        <p class="c-desc">Live blog coverage of Jake's VeBetterDAO and X-2-Earn presentation at London Blockchain Conference 2025.</p>
-        <a class="c-link" href="https://coingeek.com/live-blog-london-blockchain-conference-2025-day-1-highlights/" target="_blank">Read →</a>
-      </div>
-    </div>
-
-    <div class="card rv extra" data-c="press">
-      <div class="c-thumb" data-outlet="coingeek"><span class="c-thumb-icon">✦</span><span class="c-thumb-type">📰 Conference</span><span class="c-thumb-outlet">CoinGeek</span></div>
-      <div class="c-body">
-        <div class="c-cat">Press · Conference</div>
-        <h4>LBC 2024 — PoA Panel Live Coverage</h4>
-        <div class="c-source"><strong>CoinGeek</strong> · May 2024</div>
-        <p class="c-desc">Day 2 live-blog featuring contributions on PoA and enterprise ESG use cases alongside GorillaPool &amp; SmartLedger panellists.</p>
-        <a class="c-link" href="https://coingeek.com/proof-of-work-proof-of-stake-or-proof-of-authority-discover-the-right-consensus-model/" target="_blank">Read →</a>
-      </div>
-    </div>
-
-    <div class="card rv extra" data-c="press">
-      <div class="c-thumb" data-outlet="medium"><span class="c-thumb-icon">✦</span><span class="c-thumb-type">📰 Announcement</span><span class="c-thumb-outlet">VeChain Medium</span></div>
-      <div class="c-body">
-        <div class="c-cat">Press · Announcement</div>
-        <h4>VeChain MaaS Platform Launch with Gresini Racing</h4>
-        <div class="c-source"><strong>VeChain Medium</strong> · Mar 2024</div>
-        <p class="c-desc">Quoted as Communications Lead on MaaS tokenization announcement — widely picked up by CoinSpeaker, Blockonomi, and others.</p>
-        <a class="c-link" href="https://medium.com/vechain-foundation/vechain-announces-launch-of-no-code-asset-tokenization-platform-welcomes-first-enterprise-user-8f43f7b5aadd" target="_blank">Read →</a>
-      </div>
-    </div>
-
-    <div class="card rv extra" data-c="vechain">
-      <div class="c-thumb" data-outlet="vechain"><span class="c-thumb-icon">▶</span><span class="c-thumb-type">▶ Livestream</span><span class="c-thumb-views">4.5K views</span><span class="c-thumb-outlet">VeChain YouTube</span></div>
-      <div class="c-body">
-        <div class="c-cat">VeChain · Livestream</div>
-        <h4>VeChain Renaissance Premiere — Ep. 1: Prepare for StarGate</h4>
-        <div class="c-source"><strong>VeChain YouTube</strong> · Jun 2025</div>
-        <p class="c-desc">First-ever Renaissance livestream series, hosted with CEO Sunny Lu. Launched the flagship staking programme announcement.</p>
-        <a class="c-link" href="#" target="_blank">Watch →</a>
-      </div>
-    </div>
-
-    <div class="card rv extra" data-c="vechain">
-      <div class="c-thumb" data-outlet="vechain"><span class="c-thumb-icon">▶</span><span class="c-thumb-type">▶ Ask Jake</span><span class="c-thumb-outlet">VeChain YouTube</span></div>
-      <div class="c-body">
-        <div class="c-cat">VeChain · Ask Jake</div>
-        <h4>VeBetterDAO Uncovered: How New dApps Enhance VeChain's $VET</h4>
-        <div class="c-source"><strong>VeChain YouTube</strong> · 2024</div>
-        <p class="c-desc">Explainer series on the VeBetter ecosystem and how it creates value for VET token holders.</p>
-        <a class="c-link" href="#" target="_blank">Watch →</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="show-all-wrap"><button class="show-all-btn" id="showAllBtn">Show all appearances ↓</button></div>
-</section>
-
-<div class="dv"></div>
-
-<!-- ─── Contact ─── -->
-<section id="contact">
-  <div class="rv">
-    <div class="lb" style="justify-content:center">05 — Contact</div>
-    <div class="contact-tagline">Let's build something<br><em>remarkable</em>.</div>
-    <p class="contact-sub">Open to senior communications, marketing, and strategy roles in tech, Web3, and high-growth environments. Happy to talk advisory, consulting, or full-time.</p>
-    <div class="contact-links">
-      <a class="cb p" href="https://www.linkedin.com/in/jakecampton" target="_blank">LinkedIn →</a>
-      <a class="cb s" href="mailto:jake.campton@outlook.com">Get in touch</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <span>© 2026 Jake Campton</span>
-  <span>London · UK</span>
-  <a href="https://www.linkedin.com/in/jakecampton">linkedin.com/in/jakecampton</a>
-</footer>
+</div>
 
 <script>
-/* ═══ WebGL: animated smoke/noise backdrop ═══ */
-(function(){
-  const canvas=document.getElementById('fx');
-  const gl=canvas.getContext('webgl',{antialias:false,alpha:true});
-  if(!gl){canvas.style.display='none';return;}
-  const vs=`attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}`;
-  const fs=`precision highp float;
-uniform vec2 u_r; uniform float u_t; uniform vec2 u_m; uniform float u_s;
-float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
-  return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
-float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<6;i++){v+=a*n(p);p*=2.03;a*=.5;}return v;}
-void main(){
-  vec2 uv=gl_FragCoord.xy/u_r.xy;
-  vec2 p=uv*2.-1.; p.x*=u_r.x/u_r.y;
-  vec2 m=(u_m/u_r)*2.-1.; m.x*=u_r.x/u_r.y;
-  float md=length(p-m);
-  float t=u_t*.055 + u_s*.0008;
-  vec2 q=p*1.15;
-  q+=vec2(fbm(q+vec2(t,.0)), fbm(q+vec2(-t,2.1)))*1.1;
-  float v=fbm(q*.9+t);
-  // mouse flare
-  v += .18*exp(-md*2.2);
-  v += .06*sin(md*14.-u_t*1.8)*exp(-md*3.5);
-  // vertical story band
-  float band = smoothstep(.55,.15,abs(p.y-.2));
-  v += band*.06;
-  // colour
-  vec3 a=vec3(.025,.028,.042); // deep navy-black
-  vec3 b=vec3(.80,.66,.35);    // gold
-  vec3 col=mix(a,b,smoothstep(.42,.92,v));
-  col*=.52;
-  col+=vec3(.10,.07,.02)*exp(-md*1.6);
-  col*=1.-length(p)*.28; // vignette
-  // subtle grain
-  col+=(h(gl_FragCoord.xy+u_t)-.5)*.015;
-  gl_FragColor=vec4(col,1.);
-}`;
-  function sh(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s;}
-  const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);gl.useProgram(pr);
-  const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
-  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
-  const loc=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
-  const uR=gl.getUniformLocation(pr,'u_r'),uT=gl.getUniformLocation(pr,'u_t'),uM=gl.getUniformLocation(pr,'u_m'),uS=gl.getUniformLocation(pr,'u_s');
-  let mx=window.innerWidth/2,my=window.innerHeight/2,sm=mx,smy=my,scroll=0;
-  function resize(){const dpr=Math.min(window.devicePixelRatio||1,1.5);
-    canvas.width=innerWidth*dpr;canvas.height=innerHeight*dpr;
-    canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';
-    gl.viewport(0,0,canvas.width,canvas.height);}
-  resize();addEventListener('resize',resize);
-  addEventListener('mousemove',e=>{mx=e.clientX*(canvas.width/innerWidth);my=(innerHeight-e.clientY)*(canvas.height/innerHeight);});
-  addEventListener('scroll',()=>{scroll=window.scrollY;},{passive:true});
-  const t0=performance.now();
-  function frame(){
-    sm+=(mx-sm)*.06; smy+=(my-smy)*.06;
-    gl.uniform2f(uR,canvas.width,canvas.height);
-    gl.uniform1f(uT,(performance.now()-t0)/1000);
-    gl.uniform2f(uM,sm,smy);
-    gl.uniform1f(uS,scroll);
-    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
-    requestAnimationFrame(frame);
-  }
-  frame();
+/* ── Cursor ── */
+const dot=document.getElementById('curDot'),ring=document.getElementById('curRing');
+let cx=0,cy=0,rx=0,ry=0,tx=0,ty=0;
+window.addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY});
+(function loop(){cx+=(tx-cx)*.6;cy+=(ty-cy)*.6;rx+=(tx-rx)*.18;ry+=(ty-ry)*.18;
+  dot.style.transform=`translate(${cx}px,${cy}px)`;ring.style.transform=`translate(${rx}px,${ry}px)`;
+  requestAnimationFrame(loop);})();
+document.addEventListener('pointerover',e=>{if(e.target.closest('a,button,.case,[data-hover]'))document.body.classList.add('hov')});
+document.addEventListener('pointerout',e=>{if(e.target.closest('a,button,.case,[data-hover]'))document.body.classList.remove('hov')});
+
+/* ── Generative backdrop ── */
+const cvs=document.getElementById('fx'),ctx=cvs.getContext('2d');
+let W=0,H=0,DPR=Math.min(2,window.devicePixelRatio||1);
+function resize(){W=cvs.clientWidth=window.innerWidth;H=cvs.clientHeight=window.innerHeight;cvs.width=W*DPR;cvs.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0)}
+resize();window.addEventListener('resize',resize);
+const pts=Array.from({length:100},()=>({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.00032,vy:(Math.random()-.5)*.00032,r:.4+Math.random()*1.3,ph:Math.random()*Math.PI*2}));
+let mx=.5,my=.5,tmx=.5,tmy=.5;
+window.addEventListener('pointermove',e=>{tmx=e.clientX/W;tmy=e.clientY/H});
+function v(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+let t=0;
+(function tick(){
+  t++;mx+=(tmx-mx)*.06;my+=(tmy-my)*.06;
+  const bg=v('--bg'),moss=v('--moss'),terra=v('--terra'),ink=v('--ink');
+  ctx.fillStyle=bg;ctx.globalAlpha=.13;ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;
+  ctx.strokeStyle=ink;ctx.globalAlpha=.028;ctx.lineWidth=1;
+  for(let i=0;i<6;i++){ctx.beginPath();const yB=(i+1)/7*H;ctx.moveTo(0,yB);for(let x=0;x<=W;x+=28){const k=x*.004+t*.003+i*.6;const m=mx-x/W;const y=yB+Math.sin(k)*18+m*48*Math.sin(k*.7);ctx.lineTo(x,y)}ctx.stroke()}
+  ctx.globalAlpha=1;
+  for(const p of pts){p.x+=p.vx+Math.sin(t*.004+p.ph)*.0002;p.y+=p.vy+Math.cos(t*.003+p.ph)*.0002;
+    const dx=mx-p.x,dy=my-p.y,d=Math.hypot(dx,dy);if(d<.2){p.x+=dx*.002*(1-d/.2);p.y+=dy*.002*(1-d/.2)}
+    if(p.x<-.05)p.x=1.05;if(p.x>1.05)p.x=-.05;if(p.y<-.05)p.y=1.05;if(p.y>1.05)p.y=-.05;
+    const u=(p.ph*1000|0)%3;ctx.fillStyle=u===0?moss:u===1?terra:ink;ctx.globalAlpha=.13+Math.sin(t*.02+p.ph)*.06;
+    ctx.beginPath();ctx.arc(p.x*W,p.y*H,p.r,0,Math.PI*2);ctx.fill()}
+  ctx.globalAlpha=1;requestAnimationFrame(tick);
 })();
 
-/* ═══ Hero title char-by-char reveal ═══ */
-(function(){
-  const el=document.getElementById('heroTitle');
-  if(!el)return;
-  const html=el.innerHTML; // contains <em> etc
-  // simple char splitter preserving tags
-  const tmp=document.createElement('div');tmp.innerHTML=html;
-  function walk(node){
-    const out=[];
-    node.childNodes.forEach(c=>{
-      if(c.nodeType===3){
-        c.textContent.split('').forEach(ch=>out.push({t:'c',ch}));
-      } else if(c.nodeType===1){
-        out.push({t:'o',tag:c.tagName,attrs:[...c.attributes].map(a=>[a.name,a.value])});
-        out.push(...walk(c));
-        out.push({t:'cl',tag:c.tagName});
-      }
-    });
-    return out;
-  }
-  const tokens=walk(tmp);
-  let html2='';
-  let i=0;
-  tokens.forEach(tok=>{
-    if(tok.t==='o'){
-      const a=tok.attrs.map(([n,v])=>`${n}="${v}"`).join(' ');
-      html2+=`<${tok.tag} ${a}>`;
-    } else if(tok.t==='cl'){
-      html2+=`</${tok.tag}>`;
-    } else {
-      if(tok.ch===' ') html2+=`<span class="sp"></span>`;
-      else { html2+=`<span class="ch" style="animation-delay:${.5+i*.028}s">${tok.ch}</span>`; i++; }
-    }
-  });
-  el.innerHTML=html2;
-})();
-
-/* ═══ Parallax photo ═══ */
-(function(){
-  const p=document.getElementById('heroPhoto');
-  if(!p)return;
-  addEventListener('mousemove',e=>{
-    const rx=(e.clientY/innerHeight-.5)*-6;
-    const ry=(e.clientX/innerWidth-.5)*6;
-    p.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
-  });
-})();
-
-/* ═══ Custom cursor ═══ */
-(function(){
-  const dot=document.getElementById('curDot'),ring=document.getElementById('curRing');
-  let mx=0,my=0,rx=0,ry=0;
-  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-  (function loop(){rx+=(mx-rx)*.16;ry+=(my-ry)*.16;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-  const hovSel='a,button,.sk,.card,.cb,.exp-item';
-  document.addEventListener('mouseover',e=>{if(e.target.closest(hovSel))document.body.classList.add('hov');});
-  document.addEventListener('mouseout',e=>{if(e.target.closest(hovSel))document.body.classList.remove('hov');});
-  addEventListener('mousedown',()=>document.body.classList.add('grab'));
-  addEventListener('mouseup',()=>document.body.classList.remove('grab'));
-})();
-
-/* ═══ Nav scrolled state ═══ */
-const nav=document.getElementById('nav');
-addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>50);},{passive:true});
-
-/* ═══ Reveal observer ═══ */
-const rObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.rv').forEach(el=>rObs.observe(el));
-
-/* ═══ ACT II: pinned numbers ═══ */
-(function(){
-  const sec=document.getElementById('numbers');
-  const slides=sec.querySelectorAll('.num-slide');
-  const dots=sec.querySelectorAll('#dots .dot');
-  const rail=document.getElementById('railCounter');
-  const bgWord=document.getElementById('bgWord');
-  const n=slides.length;
-  const counted={};
-  function setActive(i){
-    slides.forEach((s,k)=>s.classList.toggle('on',k===i));
-    dots.forEach((d,k)=>d.classList.toggle('on',k===i));
-    rail.textContent=String(i+1).padStart(2,'0')+' / '+String(n).padStart(2,'0');
-    bgWord.textContent=slides[i].dataset.word;
-    if(!counted[i]){
-      const numEl=slides[i].querySelector('.n');
-      const target=parseFloat(numEl.dataset.target);
-      const suffix=numEl.dataset.suffix||'M+';
-      const dur=1100;const t0=performance.now();
-      const isInt=Number.isInteger(target);
-      (function anim(){
-        const p=Math.min(1,(performance.now()-t0)/dur);
-        const eased=1-Math.pow(1-p,3);
-        const v=target*eased;
-        numEl.textContent=(isInt?Math.round(v):v.toFixed(1))+(p>=1?(isInt?suffix:'M+'):'');
-        if(p<1)requestAnimationFrame(anim);
-      })();
-      counted[i]=true;
-    }
-  }
-  function onScroll(){
-    const r=sec.getBoundingClientRect();
-    const sh=sec.offsetHeight - innerHeight;
-    const p=Math.max(0,Math.min(1, -r.top/sh));
-    const idx=Math.min(n-1, Math.floor(p*n));
-    setActive(idx);
-  }
-  addEventListener('scroll',onScroll,{passive:true});
-  onScroll();
-})();
-
-/* ═══ Experience timeline fill ═══ */
-(function(){
-  const wrap=document.getElementById('expWrap');
-  const fill=document.getElementById('expFill');
-  if(!wrap||!fill)return;
-  function onScroll(){
-    const r=wrap.getBoundingClientRect();
-    const total=r.height;
-    const reached=Math.max(0,Math.min(total, innerHeight*.55 - r.top));
-    fill.style.height=reached+'px';
-  }
-  addEventListener('scroll',onScroll,{passive:true});onScroll();
-})();
-
-/* ═══ Magnetic skill cloud ═══ */
-(function(){
-  const cloud=document.getElementById('skillCloud');
-  if(!cloud)return;
-  const skills=cloud.querySelectorAll('.sk');
-  cloud.addEventListener('mousemove',e=>{
-    const r=cloud.getBoundingClientRect();
-    const mx=e.clientX-r.left,my=e.clientY-r.top;
-    cloud.style.setProperty('--mx',mx+'px');
-    cloud.style.setProperty('--my',my+'px');
-    skills.forEach(sk=>{
-      const sr=sk.getBoundingClientRect();
-      const sx=sr.left-r.left+sr.width/2, sy=sr.top-r.top+sr.height/2;
-      const dx=mx-sx, dy=my-sy;
-      const d=Math.hypot(dx,dy);
-      const reach=140;
-      if(d<reach){
-        const f=(1-d/reach);
-        sk.style.transform=`translate(${dx*f*.22}px,${dy*f*.22}px) scale(${1+f*.12})`;
-        sk.style.zIndex=10;
-      } else {
-        sk.style.transform='';
-        sk.style.zIndex=1;
-      }
-    });
-  });
-  cloud.addEventListener('mouseleave',()=>{skills.forEach(sk=>sk.style.transform='');});
-})();
-
-/* ═══ Writing filters ═══ */
-document.querySelectorAll('#wFilters button').forEach(b=>{
-  b.addEventListener('click',()=>{
-    document.querySelectorAll('#wFilters button').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');
-    const f=b.dataset.wf;
-    document.querySelectorAll('#writingGrid .card').forEach(c=>{
-      if(f==='all'||c.dataset.c===f)c.removeAttribute('data-h');else c.setAttribute('data-h','1');
-    });
-  });
-});
-
-/* ═══ Media filters + show all ═══ */
-const showAllBtn=document.getElementById('showAllBtn');
-let allShown=false;
-document.querySelectorAll('#mediaGrid .card.extra').forEach(c=>c.setAttribute('data-h','1'));
-document.querySelectorAll('#mFilters button').forEach(b=>{
-  b.addEventListener('click',()=>{
-    document.querySelectorAll('#mFilters button').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');
-    const f=b.dataset.mf;
-    document.querySelectorAll('#mediaGrid .card').forEach(c=>{
-      const isExtra=c.classList.contains('extra');
-      const matches=f==='all'||c.dataset.c===f;
-      if(matches&&(!isExtra||allShown||f!=='all'))c.removeAttribute('data-h');
-      else c.setAttribute('data-h','1');
-    });
-    showAllBtn.parentElement.style.display=(f==='all'&&!allShown)?'block':'none';
-  });
-});
-showAllBtn.addEventListener('click',()=>{
-  allShown=!allShown;
-  const active=document.querySelector('#mFilters button.on').dataset.mf;
-  document.querySelectorAll('#mediaGrid .card.extra').forEach(c=>{
-    const matches=active==='all'||c.dataset.c===active;
-    if(allShown&&matches)c.removeAttribute('data-h');
-    else c.setAttribute('data-h','1');
-  });
-  showAllBtn.textContent=allShown?'Show fewer ↑':'Show all appearances ↓';
-});
-
-/* ═══ Easter egg — type STORY ═══ */
-(function(){
-  const key='story';let buf='';
-  addEventListener('keydown',e=>{
-    buf=(buf+e.key.toLowerCase()).slice(-5);
-    if(buf===key){
-      document.body.animate([
-        {filter:'hue-rotate(0) saturate(1)'},
-        {filter:'hue-rotate(15deg) saturate(1.8) brightness(1.1)'},
-        {filter:'hue-rotate(0) saturate(1)'}
-      ],{duration:1600,easing:'cubic-bezier(.16,1,.3,1)'});
-      const e2=document.createElement('div');
-      e2.textContent='✦ the story continues.';
-      Object.assign(e2.style,{position:'fixed',left:'50%',top:'50%',transform:'translate(-50%,-50%)',fontFamily:'Instrument Serif',fontSize:'4vw',fontStyle:'italic',color:'#e8c97a',zIndex:99999,textShadow:'0 0 40px rgba(232,201,122,.6)',pointerEvents:'none',opacity:0});
-      document.body.appendChild(e2);
-      e2.animate([{opacity:0,transform:'translate(-50%,-50%) scale(.95)'},{opacity:1,transform:'translate(-50%,-50%) scale(1)'},{opacity:1,transform:'translate(-50%,-50%) scale(1)'},{opacity:0,transform:'translate(-50%,-50%) scale(1.05)'}],{duration:2400,easing:'cubic-bezier(.16,1,.3,1)'}).onfinish=()=>e2.remove();
-    }
-  });
-})();
+/* ── Reveal ── */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');io.unobserve(e.target)}})},{rootMargin:'-8% 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
