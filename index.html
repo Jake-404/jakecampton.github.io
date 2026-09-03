@@ -93,6 +93,22 @@ img{display:block;max-width:100%}
 .mag-proof .pf span{
   font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);line-height:1.45;
 }
+.growth-strip{
+  grid-column:1/-1;margin-top:1.35rem;padding-top:1.2rem;border-top:1px solid var(--rule);
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.7rem;
+}
+.growth-strip .step{
+  min-height:76px;padding:.85rem .8rem;border:1px solid var(--rule);border-radius:4px;
+  background:color-mix(in oklab,var(--bg-paper) 64%,transparent);
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.growth-strip b{
+  font-family:var(--mono);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--terra);font-weight:500;line-height:1.35;
+}
+.growth-strip span{
+  font-size:.82rem;color:var(--ink-2);line-height:1.35;
+}
 .mag-credits{margin-top:2.8rem;padding-top:1.4rem;border-top:1px solid var(--rule)}
 .mag-credits .cl{
   font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
@@ -108,7 +124,7 @@ img{display:block;max-width:100%}
   color:var(--ink);font-weight:500;
 }
 .mag-credits .cred span{font-size:.82rem;color:var(--ink-2);text-align:right}
-@media (max-width:700px){.mag-credits .cred{grid-template-columns:1fr;gap:.15rem}.mag-credits .cred span{text-align:left}.mag-proof{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem 1rem}.mag-cover-left .kicker{margin-bottom:1.15rem}.mag-cover-left .byline{margin-top:1.35rem}}
+@media (max-width:700px){.mag-credits .cred{grid-template-columns:1fr;gap:.15rem}.mag-credits .cred span{text-align:left}.mag-proof{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem 1rem}.growth-strip{grid-template-columns:1fr;gap:.55rem}.growth-strip .step{min-height:auto;gap:.35rem}.mag-cover-left .kicker{margin-bottom:1.15rem}.mag-cover-left .byline{margin-top:1.35rem}}
 .mag-cover-right{
   position:relative;padding-bottom:1rem;
 }
@@ -391,7 +407,7 @@ a.evidence:hover{color:var(--moss);text-decoration-color:var(--moss)}
 <span>London · UK · 2026</span>
 </div>
 <div class="mag-cover-left">
-<div class="kicker">Global marketing · communications · growth across emerging technology</div>
+<div class="kicker">Marketing · growth · communications for complex technology</div>
 <h1>Turning technology <em>into millions of users.</em></h1>
 <p class="hero-lede">Making complex ideas clear, credible and <em>impossible to ignore.</em></p>
 <div class="byline">Words and work by <b>Jake Campton</b></div>
@@ -409,6 +425,13 @@ a.evidence:hover{color:var(--moss);text-decoration-color:var(--moss)}
 <div class="pf"><b>UFC · ATP</b><span>sponsorship activation</span></div>
 <div class="pf"><b>AI systems</b><span>content, sentiment &amp; GEO</span></div>
 <div class="pf"><b>50+</b><a class="evidence" href="#ch-work"><span>public appearances</span></a></div>
+<div class="growth-strip">
+<div class="step"><b>Markets</b><span>Enterprise, consumer, institutional and crypto-native</span></div>
+<div class="step"><b>Growth</b><span>Users, holders, communities and social audiences</span></div>
+<div class="step"><b>Launches</b><span>Products, partnerships, sponsorships and campaigns</span></div>
+<div class="step"><b>Channels</b><span>Social, KOLs, PR, paid media, video and events</span></div>
+<div class="step"><b>Systems</b><span>AI workflows for content, sentiment and SEO/GEO</span></div>
+</div>
 </div>
 </section>
 <!-- Contents -->
@@ -437,8 +460,8 @@ a.evidence:hover{color:var(--moss);text-decoration-color:var(--moss)}
 <p><em>TL;DR: 8+ years in blockchain and emerging technology, turning complex products into mainstream adoption and growth. Partnered with <strong><a class="evidence" href="https://www.vechain.org/assets/whitepaper/vechain-whitepaper-3-0.pdf" rel="noopener" target="_blank">Boston Consulting Group</a></strong> to bring a Web3 sustainability app ecosystem to market together, scaling it to 5.33M users and social audiences beyond 1.5M. I've worked with Nobel Laureates, institutions and Fortune 500s, and helped bring a <a class="evidence" href="https://vechain.org/what-is-agentsuite" rel="noopener" target="_blank">blockchain-enabled AI-agent platform</a> to market.</em></p>
 <p>Since 2018, I've worked at the centre of VeChain, an enterprise-grade layer-1 blockchain built for real-world business, supply chain and sustainability use cases. During that time, the network has grown past <a class="evidence" href="https://vechainstats.com/" rel="noopener" target="_blank">15M addresses</a>, supporting an ecosystem with <a class="evidence" href="https://vechain.org/vechains-2026-manifesto" rel="noopener" target="_blank">100+ enterprise applications</a> and adopters including <a class="evidence" href="https://www.prnewswire.co.uk/news-releases/walmart-china-takes-on-food-safety-with-vechainthor-blockchain-technology-887304023.html" rel="noopener" target="_blank">Walmart China</a>, <a class="evidence" href="https://files.vechain.org/vechaincontainer/whitepaper-2-0.pdf" rel="noopener" target="_blank">BMW</a>, Givenchy, Renault, BYD Auto and <a class="evidence" href="https://vechain.org/vechains-2026-manifesto" rel="noopener" target="_blank">Lululemon</a>. Channel partners including <strong>Boston Consulting Group</strong>, <a class="evidence" href="https://www.prnewswire.co.uk/news-releases/walmart-china-takes-on-food-safety-with-vechainthor-blockchain-technology-887304023.html" rel="noopener" target="_blank">PwC</a> and <a class="evidence" href="https://www.hydro.com/en/global/media/news/2021/hydro-and-dnv-gl-launch-blockchain-for-greener-metals/" rel="noopener" target="_blank">DNV</a> have taken the technology to their own clients.</p>
 <p>Much of the work has been about making the infrastructure disappear: turning technically complex blockchain products into propositions businesses and consumers can understand and use without needing to understand the technology underneath. Alongside VeChain, I've led communications for projects across hardware, exchanges, gaming, cybersecurity and asset management. Years spent close to the product, and across multiple market cycles, mean I don't market from the outside. I understand the technology, the audience and what it takes to make both move.</p>
-<p>I've helped cement VeChain's position around enterprise-grade infrastructure and real-world utility, differentiating it in a market often dominated by flashier metrics and speculation. That credibility has been reinforced through <strong>Boston Consulting Group</strong>, enterprise adopters, two Nobel laureates and global sports properties.</p>
-<p><strong><a class="evidence" href="https://www.prnewswire.com/news-releases/vechain-unveils-sustainability-focused-web3-for-better-whitepaper-at-the-hive-summit-301764227.html" rel="noopener" target="_blank">Sir Konstantin Novoselov</a></strong> joined VeChain as an adviser, and I have ghostwritten and shaped marketing around his work in nanomaterials and industrial processes, including a <a href="https://ifim.nus.edu.sg/national-university-of-singapore-and-university-of-toronto-launch-the-materials-data-foundry-to-fast-track-discovery-of-functional-materials-with-ai-and-robotics/" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:var(--terra);text-underline-offset:3px" target="_blank">materials-discovery initiative</a> with NUS, NVIDIA and VeChain. <strong><a class="evidence" href="https://www.prnewswire.com/news-releases/vechains-the-hive-summit-to-host-two-nobel-laureates-unlocking-a-sustainability-revolution-with-graphene-and-blockchain-301749488.html" rel="noopener" target="_blank">Sir Andre Geim</a></strong> joined The HiVe launch to speak on blockchain, nanotechnology and sustainability. I've also led communications around <a class="evidence" href="https://www.ufc.com/news/ufc-and-vechain-announce-historic-global-marketing-partnership" rel="noopener" target="_blank">major UFC and Nitto ATP Finals sponsorships</a>, taking the proposition from Web3-native audiences into the mainstream.</p>
+<p>I've helped cement VeChain's position around enterprise-grade infrastructure and real-world utility, differentiating it in a market often dominated by flashier metrics and speculation. That credibility has been reinforced through <strong>Boston Consulting Group</strong>, enterprise adopters, scientific advisers and global sports properties.</p>
+<p><strong><a class="evidence" href="https://www.prnewswire.com/news-releases/vechain-unveils-sustainability-focused-web3-for-better-whitepaper-at-the-hive-summit-301764227.html" rel="noopener" target="_blank">Sir Konstantin Novoselov</a></strong> joined VeChain as an adviser, and I have ghostwritten and shaped marketing around his work in nanomaterials and industrial processes, including a <a href="https://ifim.nus.edu.sg/national-university-of-singapore-and-university-of-toronto-launch-the-materials-data-foundry-to-fast-track-discovery-of-functional-materials-with-ai-and-robotics/" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:var(--terra);text-underline-offset:3px" target="_blank">materials-discovery initiative</a> with NUS, NVIDIA and VeChain. I've also led communications around <a class="evidence" href="https://www.ufc.com/news/ufc-and-vechain-announce-historic-global-marketing-partnership" rel="noopener" target="_blank">major UFC and Nitto ATP Finals sponsorships</a>, taking the proposition from Web3-native audiences into the mainstream.</p>
 <p>I partner directly with the CEO and senior teams on company and product positioning, then turn that into the language used across launches, executives, partners, social and community. I own the social and distribution engine across X, LinkedIn and YouTube, set the editorial standard, manage agency partners and oversee more than $1M in annual KOL and influencer activity. I also own global community messaging and escalation across high-visibility issues.</p>
 <div class="pull-quote">
           $1M+ in annual KOL and influencer activity, with briefs, messaging and final content approval under my remit.
