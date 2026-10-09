@@ -65,6 +65,10 @@ img{display:block;max-width:100%}
   display:flex;align-items:center;gap:.8rem;line-height:1.5;
 }
 .mag-cover-left .kicker::before{content:'';width:34px;height:1px;background:var(--terra)}
+.mag-cover-left .hero-kicker{align-items:flex-start;flex-direction:column;gap:.35rem}
+.mag-cover-left .hero-kicker::before{width:34px}
+.mag-cover-left .hero-kicker-lead{font-weight:500;letter-spacing:.22em}
+.mag-cover-left .hero-kicker-areas{padding-left:42px;font-size:.58rem;letter-spacing:.15em;color:var(--ink-3)}
 .mag-cover-left h1{
   font-family:var(--display);font-size:clamp(2.5rem,5.2vw,4.3rem);line-height:1.02;
   font-weight:400;letter-spacing:-.028em;margin-bottom:1.1rem;
@@ -428,7 +432,7 @@ a.evidence:hover{color:var(--moss);text-decoration-color:var(--moss)}
 <span>London · UK · 2026</span>
 </div>
 <div class="mag-cover-left">
-<div class="kicker">MARKETING · GROWTH · COMMUNICATIONS · COMMUNITY</div>
+<div class="kicker hero-kicker"><span class="hero-kicker-lead">LEADERSHIP</span><span class="hero-kicker-areas">Marketing · Growth · Communications · Community</span></div>
 <h1>Turning technology <em>into millions of users.</em></h1>
 <p class="hero-lede">Making complex ideas clear, credible and <em>impossible to ignore.</em></p>
 <div class="byline">Words and work by <b>Jake Campton</b></div>
