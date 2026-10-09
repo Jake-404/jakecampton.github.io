@@ -453,6 +453,21 @@ a.evidence:hover{color:var(--moss);text-decoration-color:var(--moss)}
   .mag-cover-left .hero-kicker-areas{font-size:.64rem;letter-spacing:.1em}
   .fig-label{font-size:.6rem;letter-spacing:.12em}
 }
+
+/* Layout preview: align the TL;DR, case-study metrics and copy to one reading column. */
+.mag-body,.pull-quote.mag-tldr{max-width:42rem}
+.pull-quote.mag-tldr{margin-left:calc(180px + 2.5rem)}
+.mag-proof.vebetter-proof{
+  width:calc(100% - (180px + 2.5rem));max-width:42rem;margin-left:calc(180px + 2.5rem);
+  grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem 2rem;align-items:stretch;
+}
+@media(max-width:960px){
+  .mag-body{margin-left:0}
+  .pull-quote.mag-tldr,.mag-proof.vebetter-proof{width:100%;margin-left:0}
+}
+.pull-quote.mag-tldr .tldr-lead{font-family:var(--body);font-size:1.1rem;font-style:normal;font-weight:500;line-height:1.5;color:var(--ink);margin:0 0 .75rem}
+.pull-quote.mag-tldr p:not(.tldr-lead){font-family:var(--body);font-size:.96rem;font-style:normal;font-weight:300;line-height:1.65;color:var(--ink-2);margin:.65rem 0 0}
+
 </style>
 </head>
 <body>
@@ -500,7 +515,7 @@ a.evidence:hover{color:var(--moss);text-decoration-color:var(--moss)}
 <h2>When Comms Become <em>Culture</em>.</h2>
 </div>
 </div>
-<div class="pull-quote mag-tldr"><span class="mag-tldr-label">TL;DR</span><p>I’m a communications, marketing and social leader with 8+ years in blockchain and emerging tech. At VeChain, I led global communications across a multi-product enterprise blockchain business, shaping narrative and social strategy with senior leaders, product teams, agencies and communities. I helped grow combined social audiences beyond 1.5M and worked with Boston Consulting Group on a sustainability app ecosystem that reached 5.33M users. My work has ranged from enterprise adoption and a commercial blockchain-enabled AI product to Nobel Laureates, Fortune 500s and community builders. I use clear communications and strong messaging to help ecosystems grow and communities connect.</p></div>
+<div class="pull-quote mag-tldr"><span class="mag-tldr-label">TL;DR</span><p class="tldr-lead">I’m a communications, marketing and social leader with 8+ years in blockchain and emerging tech.</p><p>At VeChain, I led global communications across a multi-product enterprise blockchain business, shaping narrative and social strategy with senior leaders, product teams, agencies and communities. I helped grow combined social audiences beyond 1.5M and worked with Boston Consulting Group on a sustainability app ecosystem that reached 5.33M users.</p><p>My work has ranged from enterprise adoption and a commercial blockchain-enabled AI product to Nobel Laureates, Fortune 500s and community builders. I use clear communications and strong messaging to help ecosystems grow and communities connect.</p></div>
 <div class="mag-cols">
 <aside aria-hidden="true" class="mag-margin rv"></aside>
 <div class="mag-body">
@@ -524,7 +539,7 @@ a.evidence:hover{color:var(--moss);text-decoration-color:var(--moss)}
 <h2><em>VeBetter</em>: From Zero to 5M+ Users.</h2>
 </div>
 </div>
-<div class="mag-proof rv" style="margin-top:0;margin-bottom:2.6rem">
+<div class="mag-proof vebetter-proof rv" style="margin-top:0;margin-bottom:2.6rem">
 <div class="pf"><a class="evidence" href="https://vechain.org/vechain-roadmap-2026-agentic-foundations-for-tomorrow-beyond" rel="noopener" target="_blank"><b>5.33M</b></a><span>users onboarded</span></div>
 <div class="pf"><a class="evidence" href="https://vechain.org/vechain-roadmap-2026-agentic-foundations-for-tomorrow-beyond" rel="noopener" target="_blank"><b>52M+</b></a><span>reward transactions</span></div>
 <div class="pf"><a class="evidence" href="https://vechain.org/vechain-roadmap-2026-agentic-foundations-for-tomorrow-beyond" rel="noopener" target="_blank"><b>50+</b></a><span>apps live</span></div>
@@ -729,7 +744,6 @@ a.evidence:hover{color:var(--moss);text-decoration-color:var(--moss)}
 </div>
 <div class="contact-close-copy">
 <p>I use clear communications to help technical products grow into thriving ecosystems, bringing users, builders, businesses and communities into the journey. If you’re building something ambitious and want it to matter beyond the product itself, let’s talk.</p>
-<p>London, UK · remote-friendly · open to travel.</p>
 <div class="mag-postscript-cta contact-close-cta">
 <a class="cb p" href="https://www.linkedin.com/in/jakecampton" rel="noopener" target="_blank">Let’s talk on LinkedIn →</a>
 </div>
