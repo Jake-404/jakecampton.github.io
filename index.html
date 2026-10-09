@@ -392,10 +392,12 @@ a.evidence:hover{color:var(--moss);text-decoration-color:var(--moss)}
 .internal-metrics{margin:0;padding-left:1.2rem}
 .internal-metrics li{margin:.55rem 0;color:var(--ink-2);font-size:.88rem;line-height:1.6}
 @media(max-width:700px){.bib-list{padding-left:1.1rem}}
-.mag-tldr{max-width:900px;margin:1.5rem auto 2.5rem;padding:1rem 1.25rem;background:var(--bg-paper);border:1px solid var(--rule);border-left:3px solid var(--moss);border-radius:4px}
-.mag-tldr-label{display:block;margin-bottom:.35rem;font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
-.mag-tldr p{margin:0;color:var(--ink-2);font-size:.9rem;line-height:1.65}
-@media(max-width:700px){.mag-tldr{margin:1rem 0 2rem;padding:.9rem 1rem}}
+.pull-quote.mag-tldr{max-width:62ch;margin:1.5rem 0 2.5rem calc(140px + 2.5rem);padding:1rem 0;font-size:1rem;line-height:1.6;color:var(--ink-2)}
+.pull-quote.mag-tldr::before{font-size:2.4rem;left:-1.25rem;top:-.45rem}
+.mag-tldr-label{display:block;margin-bottom:.35rem;font-family:var(--mono);font-style:normal;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
+.mag-tldr p{margin:0;color:var(--ink-2);font-family:var(--display);font-size:1rem;font-style:italic;line-height:1.6}
+@media(max-width:960px){.pull-quote.mag-tldr{margin-left:calc(140px + 2.5rem)}}
+@media(max-width:700px){.pull-quote.mag-tldr{margin:1rem 0 2rem 0;padding:1rem 0}.pull-quote.mag-tldr::before{left:-.2rem;top:-.5rem}.mag-tldr p{padding-left:1rem}}
 </style>
 </head>
 <body>
@@ -443,7 +445,7 @@ a.evidence:hover{color:var(--moss);text-decoration-color:var(--moss)}
 <h2>When comms become <em>culture</em>.</h2>
 </div>
 </div>
-<div class="mag-tldr"><span class="mag-tldr-label">TL;DR</span><p>I’ve spent 8+ years building audiences and adoption around blockchain and emerging technology. At VeChain, I led global communications and social across a multi-product business, helped grow combined social audiences beyond 1.5M, and worked with Boston Consulting Group on a sustainability app ecosystem that reached 5.33M users. I also helped bring a blockchain-enabled AI agent platform to market. I’ve worked with Nobel Laureates, Fortune 500s, institutions and community builders. I use clear communications and strong messaging to help ecosystems grow and communities connect.</p></div>
+<div class="pull-quote mag-tldr"><span class="mag-tldr-label">TL;DR</span><p>I’ve spent 8+ years building audiences and adoption around blockchain and emerging technology. At VeChain, I led global communications and social across a multi-product business, helped grow combined social audiences beyond 1.5M, and worked with Boston Consulting Group on a sustainability app ecosystem that reached 5.33M users. I also helped bring a blockchain-enabled AI agent platform to market. I’ve worked with Nobel Laureates, Fortune 500s, institutions and community builders. I use clear communications and strong messaging to help ecosystems grow and communities connect.</p></div>
 <div class="mag-cols">
 <aside aria-hidden="true" class="mag-margin rv"></aside>
 <div class="mag-body">
