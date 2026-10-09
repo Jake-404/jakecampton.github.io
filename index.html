@@ -416,6 +416,27 @@ a.evidence:hover{color:var(--moss);text-decoration-color:var(--moss)}
 .mag-tldr p{margin:0;color:var(--ink-2);font-family:var(--display);font-size:1rem;font-style:italic;line-height:1.6}
 @media(max-width:960px){.pull-quote.mag-tldr{margin-left:calc(140px + 2.5rem)}}
 @media(max-width:700px){.pull-quote.mag-tldr{margin:1rem 0 2rem 0;padding:1rem 0}.pull-quote.mag-tldr::before{left:-.2rem;top:-.5rem}.mag-tldr p{padding-left:1rem}}
+
+/* Responsive and contrast refinements */
+.mag-body p:first-of-type::first-letter{font-size:3.7rem}
+.mag-cover-left .kicker,.mag-cover-left .byline b,.growth-strip b,.mag-ch-head .kicker,.mag-margin b,.mag-figure .fig-label,.mc-cat,.mag-tldr-label{color:#964b2b}
+.mag-list-item .co,.mag-card h4 em,.mc-link{color:#3c642f}
+@media (min-width:701px) and (max-width:960px){
+  .mag-chapter-head{grid-template-columns:100px minmax(0,1fr);gap:1.5rem}
+  .pull-quote.mag-tldr{margin-left:calc(100px + 1.5rem)}
+}
+@media (max-width:700px){
+  .mag-chapter-head{grid-template-columns:56px minmax(0,1fr);gap:1rem;align-items:start}
+  .mag-ch-num{font-size:clamp(2.35rem,10vw,3.5rem)}
+  .mag-ch-head h2{font-size:clamp(1.8rem,8vw,2.7rem);line-height:1.06}
+  .mag-list-item{grid-template-columns:minmax(0,1fr);gap:.55rem}
+  .mag-list-item .when{display:flex;align-items:baseline;gap:.35rem;padding-top:0}
+  .mag-list-item .when b{display:inline;margin:0}
+  .mag-list-item ul{padding-left:1rem!important}
+  .x-thumb{height:420px}
+  .yt-thumb{height:420px!important}
+}
+
 </style>
 </head>
 <body>
@@ -510,12 +531,7 @@ a.evidence:hover{color:var(--moss);text-decoration-color:var(--moss)}
 <p>I’m proud of what we built and the work we did to show that blockchain can be a force for good, in a truly global way. We had content generated in all corners of the world, connecting the technology to everyday actions that can make a difference.</p>
 
 
-<div class="mag-figure" style="max-width:none;margin-left:calc(-180px - 2.5rem);width:calc(100% + 360px + 5rem)">
 
-
-
-
-</div>
 </div>
 <aside aria-hidden="true" class="mag-margin rv d2"></aside>
 </div>
