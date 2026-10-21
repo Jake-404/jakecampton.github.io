@@ -71,9 +71,11 @@ html.js .rv.v{opacity:1;transform:none}
 }
 .mag-masthead{
   position:absolute;top:2.2rem;left:3rem;right:3rem;
-  display:flex;justify-content:space-between;align-items:baseline;
+  display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:baseline;
   font-family:var(--mono);font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);
 }
+.mag-masthead .domain{text-align:center;color:var(--ink-2)}
+.mag-masthead .location-date{text-align:right}
 .mag-masthead .issue{font-family:var(--display);font-style:italic;font-size:1.05rem;letter-spacing:0;text-transform:none;color:var(--terra-text)}
 .mag-cover-left .kicker{
   font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--terra-text);margin-bottom:1.45rem;
@@ -400,6 +402,9 @@ html.js .rv.v{opacity:1;transform:none}
 }
 @media (max-width:700px){
   .mag-proof{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem 1rem}
+  .mag-masthead{grid-template-columns:1fr 1fr;row-gap:.15rem;top:1.4rem;font-size:.58rem;letter-spacing:.12em}
+  .mag-masthead .domain{grid-column:1/-1;grid-row:2;text-align:left;font-size:.55rem}
+  .mag-masthead .issue{grid-column:2;grid-row:1}
   .mag-chapter-head{grid-template-columns:60px 1fr;gap:1.25rem;margin-bottom:2.5rem;padding-bottom:1.5rem}
   .mag-list-item{grid-template-columns:80px 1fr;gap:1rem}
 }
@@ -454,6 +459,13 @@ a.evidence:hover{color:var(--moss-text);text-decoration-color:var(--moss-text)}
   #ch-breadth .mag-proof .pf{grid-column:auto}
   #ch-breadth .mag-proof .pf:last-child{grid-column:1 / -1;text-align:center}
 }
+
+/* Hero type hierarchy refinement preview */
+.mag-cover-left .kicker{font-size:.7rem;letter-spacing:.16em;margin-bottom:1.2rem}
+.mag-cover-left h1{font-size:clamp(2.3rem,4.2vw,3.5rem);line-height:1.08;letter-spacing:-.024em;max-width:18ch;margin-bottom:1rem}
+.mag-cover-left .hero-lede{font-size:clamp(1.05rem,1.35vw,1.2rem);line-height:1.55;max-width:40ch}
+.mag-cover-left .byline{font-size:.7rem;letter-spacing:.16em;margin-top:1.2rem}
+@media(max-width:700px){.mag-cover-left h1{font-size:clamp(2.2rem,8vw,2.65rem);max-width:19ch}.mag-cover-left .hero-lede{font-size:1.08rem}}
 </style>
 </head>
 <body>
@@ -468,13 +480,13 @@ a.evidence:hover{color:var(--moss-text);text-decoration-color:var(--moss-text)}
 <section class="mag-cover" data-screen-label="A01 Cover">
 <div class="mag-masthead">
 <span>Jake Campton</span>
-<span>London · UK · 2026</span>
+<span class="domain">Web3 · AI · Emerging Technology</span>
+<span class="location-date">London · UK · 2026</span>
 </div>
 <div class="mag-cover-left">
-<div class="kicker">MARKETING · GROWTH · COMMUNICATIONS · COMMUNITY</div>
-<h1>Driving ecosystem growth through <span class="green">communications, community and social strategy</span>.</h1>
-<p class="hero-lede">Making complex technology clear, credible and <em>impossible to ignore.</em></p>
-<div class="byline">Words and work by <b>Jake Campton</b></div>
+<div class="kicker">Leadership in Marketing · Growth · Communications · Community</div>
+<h1>What good is technology if it <em>can’t change the world?</em></h1>
+<p class="hero-lede">Building the stories and strategies that help frontier technology reach people, businesses and the wider economy.</p>
 </div>
 <div class="mag-cover-right">
 <div class="mag-portrait"><picture><source srcset="assets/jake-portrait.webp" type="image/webp"/><img alt="Jake Campton speaking onstage at the London Blockchain Conference." src="assets/jake-portrait.jpg"/></picture></div>
@@ -485,7 +497,7 @@ a.evidence:hover{color:var(--moss-text);text-decoration-color:var(--moss-text)}
 <section class="mag-contents" data-screen-label="A02 Contents">
 <h2>Contents</h2>
 <nav aria-label="Contents" class="mag-toc">
-<a class="row" href="#ch-breadth"><span class="num">I</span><span class="ttl">Building Communities and <em>Ecosystems</em></span><span class="kind">Career Snapshot</span></a>
+<a class="row" href="#ch-breadth"><span class="num">I</span><span class="ttl">Turning Technical Stories Into <em>Ecosystem Growth</em></span><span class="kind">Career Snapshot</span></a>
 <a class="row" href="#ch-ii"><span class="num">II</span><span class="ttl">From Complex Ideas to <em>Real-World Adoption</em></span><span class="kind">Profile</span></a>
 <a class="row" href="#ch-i"><span class="num">III</span><span class="ttl"><em>VeBetter</em>: From Zero to 5.33M Users</span><span class="kind">Case Study</span></a>
 <a class="row" href="#ch-work"><span class="num">IV</span><span class="ttl">Campaigns, Launches &amp; <em>Media</em></span><span class="kind">Selected Work</span></a>
@@ -498,7 +510,7 @@ a.evidence:hover{color:var(--moss-text);text-decoration-color:var(--moss-text)}
 <div class="mag-ch-num">I.</div>
 <div class="mag-ch-head">
 <div class="kicker">What I Do</div>
-<h2>Building Communities and <em>Ecosystems</em></h2>
+<h2>Turning Technical Stories Into <em>Ecosystem Growth</em></h2>
 </div>
 </div>
 <div class="mag-cols">
@@ -506,7 +518,7 @@ a.evidence:hover{color:var(--moss-text);text-decoration-color:var(--moss-text)}
 <div class="mag-body">
 <p>I’ve always been interested in technology and finance, and in how people understand new ideas. I started in environmental science and lab work, then moved into medical communications and conference production. My MSc in Science Communication taught me to make technical subjects clear and compelling to people outside the field.</p>
 <p>I found my way into blockchain through its online communities. At VeChain, I led communications, social and community as the ecosystem grew. I worked across social channels, websites, media, live content and direct community engagement, staying close to the products and the people building and using them. What I heard from those people helped me decide what to explain, how to frame it for different audiences and how to keep them engaged beyond a launch. Over time, that work helped turn audiences into long-term followers, contributors, partners and users.</p>
-<p>Over my tenure, VeChain’s story reached hundreds of millions of readers and viewers worldwide, covering enterprise applications, sustainability, research and community projects. I grew the flagship X account by more than 100% and led teams across regions. That’s the work I do: turn complex products into stories that build lasting audiences, attract business interest and support adoption.</p>
+<p>Over my tenure, VeChain’s story appeared across thousands of pieces of media and reached hundreds of millions of readers and viewers worldwide, covering enterprise applications, sustainability, research and community projects. I grew the flagship X account by more than 100% and led teams across regions. That’s the work I do: turn complex products into stories that build lasting audiences, attract business interest and support adoption.</p>
 <div class="mag-proof rv" style="margin-top:1.5rem;margin-bottom:2rem">
 <div class="pf"><b>1.5M+</b><span>Combined social following</span></div>
 <div class="pf"><b>15</b><span>Community administrators across Europe, the US and Asia</span></div>
@@ -577,10 +589,10 @@ a.evidence:hover{color:var(--moss-text);text-decoration-color:var(--moss-text)}
 <div class="mag-caption">At the London Blockchain Conference Spotlight Stage, Jake Campton discusses VeBetter’s go-to-market strategy with Bernhard Kronfellner, a partner at Boston Consulting Group.</div>
 </div>
 <p>VeBetter marked a change in VeChain’s sustainability story: taking it from enterprise-led work towards products people could use in everyday life. Working with BCG, I helped define the thesis for blockchain for sustainability. BCG opened doors to partners, and we spoke with them about their sustainability pain points, how they viewed blockchain and where it could fit with work already underway. I helped turn those conversations into the business case, messaging framework and go-to-market story for partners, investors, builders and consumers.</p>
-<p>I carried that story into the launch. I shaped the messaging around the BCG co-authored <em>Web3 for Better</em> whitepaper and presented the sustainability thesis on stage at The HiVe in Las Vegas. The event brought together BCG, business leaders and Nobel laureates Sir Andre Geim and Sir Konstantin Novoselov. Konstantin joined as an adviser, giving the story a practical connection to research into novel materials and industrial sustainability. I coordinated agency partners, executive preparation, event content and live media. Launch campaign reporting recorded 168M impressions and 18 media placements, including coverage in trade and industry media beyond Web3.</p>
+<p>I carried that story into the launch. I shaped the messaging around <em>Web3 for Better</em>, the whitepaper we developed with BCG, and presented the sustainability thesis on stage at The HiVe in Las Vegas. The event brought together BCG, business leaders and Nobel laureates Sir Andre Geim and Sir Konstantin Novoselov. Konstantin joined as an adviser, giving the story a practical connection to research into novel materials and industrial sustainability. I coordinated agency partners, executive preparation, event content and live media. Launch campaign reporting recorded 168M impressions and 18 media placements, including coverage in trade and industry media beyond Web3.</p>
 <p>The campaign had a distinctly Web3 feel. The CEO joined X Spaces, while KOLs and community voices carried the proposition through social channels, articles, press and events. I managed agency partners, the content calendar, copy development and sign-off. I handled some KOL relationships directly and managed others through the agency. I also delivered the thesis myself on stage, in press, at events and through articles and social posts.</p>
 <p>The growth challenge was making the technology clear and useful to people who did not already follow blockchain. VeBetter apps rewarded people for everyday actions, from choosing healthier or more sustainable food to exercising, cleaning up and using sustainable transport. The rewards had monetary value, while the technology could stay in the background. The proposition was simple: take an action, have it recorded on-chain, and earn a reward. That approach gave people a reason to participate and offered partners a more traceable way to talk about sustainability activity.</p>
-<p>The consumer campaign sat alongside work to bring builders into the ecosystem. I supported application campaigns and communications around three hackathons, with programme reporting recording 20 app-development engagements. We also took the story into communities and live settings around the world, including beach clean-ups with Dana White and work with sustainability organisations. I developed positioning and messaging for VeChain’s part in the Acumen-led GSTI documentary, with CNBC as media partner, and helped carry the story into HiVe 2.0 in San Francisco, where builders and teams came together. People on the ground created content from all corners of the world.</p>
+<p>The consumer campaign sat alongside work to bring builders into the ecosystem. I supported application campaigns and communications around three hackathons. We also took the story into communities and live settings around the world, including beach clean-ups with Dana White and work with sustainability organisations. I developed positioning and messaging for VeChain’s part in the Acumen-led GSTI documentary, with CNBC as media partner, and helped carry the story into HiVe 2.0 in San Francisco, where builders and teams came together.</p>
 <p>Reaching five million users was a huge moment. We could see adoption accelerating and knew the proposition was connecting. I’m proud that we helped show blockchain can be a force for good by giving people a reason to take part in sustainability, while recording the activity on-chain. We told that story in a truly global way, with people creating content on the ground in all corners of the world.</p>
 </div>
 <aside aria-hidden="true" class="mag-margin rv d2"></aside>
