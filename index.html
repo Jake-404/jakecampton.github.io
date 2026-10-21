@@ -460,6 +460,12 @@ a.evidence:hover{color:var(--moss-text);text-decoration-color:var(--moss-text)}
   #ch-breadth .mag-proof .pf:last-child{grid-column:1 / -1;text-align:center}
 }
 
+/* Hero image sizing refinement */
+.mag-cover-right{max-width:400px;justify-self:end}
+.mag-portrait{aspect-ratio:4/5}
+@media(max-width:960px){.mag-cover-right{justify-self:center}}
+@media(max-width:700px){.mag-cover-right{max-width:min(100%,360px)}}
+
 /* Hero type hierarchy refinement preview */
 .mag-cover-left .kicker{font-size:.7rem;letter-spacing:.16em;margin-bottom:1.2rem}
 .mag-cover-left h1{font-size:clamp(2.3rem,4.2vw,3.5rem);line-height:1.08;letter-spacing:-.024em;max-width:18ch;margin-bottom:1rem}
